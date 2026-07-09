@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Physio Therapy</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <h2>Dr. Subhajit</h2>
+            <nav>
+                <a href="#appointments">Pending Requests</a>
+                <a href="#timetable">Weekly Schedule</a>
+                <a href="#fees">Fee Structure</a>
+                <a href="#history">Patient History</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <section id="appointments" class="glass-card">
+                <h3>New Appointment Requests</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient Name</th>
+                                <th>Problem</th>
+                                <th>Requested Date/Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingList"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="timetable" class="glass-card">
+                <h3>Accepted Appointments & Free Slots</h3>
+                <div class="weekly-grid">
+                    <div class="day-col">
+                        <h4>Monday</h4>
+                        <div class="slot booked">10:00 AM - Rahul D.</div>
+                        <div class="slot free">11:00 AM - FREE</div>
+                        <div class="slot booked">02:00 PM - Priya S.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fees" class="glass-card">
+                <h3>Smart Fee Management</h3>
+                <div class="fee-calculator">
+                    <div class="input-group">
+                        <label>Select Problem Complexity</label>
+                        <select id="problemType">
+                            <option value="500">General Consultation (₹500)</option>
+                            <option value="1200">Sports Injury Rehab (₹1200)</option>
+                            <option value="800">Post-Surgery Therapy (₹800)</option>
+                        </select>
+                    </div>
+                    <div class="suggested-box">
+                        <p>Suggested Fee for Patient: <strong id="suggestedFee">₹500</strong></p>
+                        <button class="btn-primary">Send Fee Quote</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="history" class="glass-card">
+                <h3>Checked Patient History</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Prescription</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyList">
+                            <tr>
+                                <td>18 Jan 2026</td>
+                                <td>Modhurima Di</td>
+                                <td>+91 XXXXX-XXXXX</td>
+                                <td><button class="btn-view">View RX</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

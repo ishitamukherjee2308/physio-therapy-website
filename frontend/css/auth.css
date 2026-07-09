@@ -1,0 +1,306 @@
+/* AUTHENTICATION STYLES */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+
+/* THEME VARIABLES */
+:root {
+    --primary: #00f2ff;
+    --secondary: #7000ff;
+    --bg: #050505;
+    --glass: rgba(255, 255, 255, 0.03);
+    --input-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* SYSTEM RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+/* BODY */
+body {
+    background: radial-gradient(circle at top left, #1a1a2e, var(--bg));
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* AUTH CONTAINER */
+.auth-wrapper {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--glass);
+    backdrop-filter: blur(25px);
+    padding: 40px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7);
+    scroll-behavior: smooth;
+}
+
+.auth-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.auth-container::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+/* HEADER */
+.auth-header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.auth-header p {
+    color: #888;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+}
+
+/* INPUT GROUPS */
+.input-group {
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-bottom: 6px;
+    padding-left: 5px;
+}
+
+/* VERIFICATION BOX */
+.verification-box {
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+/* DOCUMENT TITLE */
+.doc-section-title {
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 12px;
+    font-size: 0.8rem;
+    color: #aaa;
+    padding-left: 5px;
+}
+
+/* INPUT FIELDS */
+.input-group input:not([type="file"]) {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--input-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+/* CHOICES.JS */
+.choices__inner {
+    background-color: var(--input-bg) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    min-height: 48px;
+    padding: 8px 16px !important;
+    color: #fff !important;
+    font-size: 0.95rem;
+}
+
+.choices__list--dropdown {
+    background-color: #111 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    margin-top: 8px;
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.choices__item {
+    color: #fff !important;
+}
+
+.choices__item--selectable:hover {
+    background-color: var(--glass) !important;
+    color: var(--primary) !important;
+}
+
+.choices[data-type*=select-one]:after {
+    border-color: var(--primary) transparent transparent transparent !important;
+}
+
+/* REGISTER ANIMATION */
+.register-only {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
+}
+
+.auth-container.mode-register .register-only {
+    max-height: 2000px;
+    opacity: 1;
+}
+
+/* FILE UPLOAD */
+input[type="file"] {
+    display: none;
+}
+
+.file-upload-wrapper {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    background: var(--input-bg);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    text-align: center;
+    color: #888;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 15px;
+}
+
+.file-upload-wrapper:last-of-type {
+    margin-bottom: 0;
+}
+
+.file-preview {
+    margin-top: 5px;
+    font-size: 0.75rem;
+    color: var(--primary);
+}
+
+/* BUTTONS */
+.auth-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    border: none;
+    border-radius: 12px;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.register-text {
+    display: none;
+}
+
+.auth-container.mode-register .register-text {
+    display: inline-block;
+}
+
+.auth-container.mode-register .login-text {
+    display: none !important;
+}
+
+.auth-footer {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+#toRegister,
+#toLogin {
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.input-group:has(#password) {
+    margin-top: 20px;
+}
+
+/* SUCCESS MODAL */
+#successModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: #000;
+    animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.success-checkmark {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border: 4px solid #28a745;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.check-icon {
+    width: 30px;
+    height: 15px;
+    border-bottom: 5px solid #28a745;
+    border-left: 5px solid #28a745;
+    transform: rotate(-45deg);
+    animation: drawTick 0.5s ease-in-out;
+}
+
+/* ANIMATIONS */
+@keyframes popUp {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes drawTick {
+    0% {
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        width: 30px;
+        height: 15px;
+    }
+}

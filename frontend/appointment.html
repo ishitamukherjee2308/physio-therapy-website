@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment | Dr. Subhajit Mukherjee</title>
+    <link rel="stylesheet" href="css/appointment.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2>Dr. Subhajit Mukherjee</h2>
+    <a href="index.html">⬅ Back to Home</a>
+</nav>
+
+<section class="appointment-section">
+    <div class="form-container">
+        <h1>Personal Appointment</h1>
+        <p>Book a one-to-one consultation with Dr. Subhajit Mukherjee</p>
+
+        <form id="appointmentForm">
+            <fieldset class="input-group">
+                <legend>Full Name</legend>
+                <input 
+                    type="text" 
+                    id="name" 
+                    placeholder="Enter your name"
+                    required
+                >
+            </fieldset>
+
+            <fieldset class="input-group">
+                <legend>Phone Number</legend>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    placeholder="Enter phone number"
+                    required
+                >
+            </fieldset>
+
+            <fieldset class="input-group">
+                <legend>Email ID</legend>
+                <input 
+                    type="email" 
+                    id="email" 
+                    placeholder="Enter email address"
+                    required
+                >
+            </fieldset>
+
+            <fieldset class="input-group">
+                <legend>Select Date</legend>
+                <input 
+                    type="date" 
+                    id="date" 
+                    required
+                >
+            </fieldset>
+
+            <fieldset class="input-group">
+                <legend>Describe Your Issue</legend>
+                <textarea 
+                    id="message" 
+                    placeholder="How can we help you?"
+                    required
+                ></textarea>
+            </fieldset>
+
+            <button 
+                type="submit" 
+                class="btn"
+            >
+                Confirm Appointment
+            </button>
+        </form>
+    </div>
+</section>
+
+<div id="confirmModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content glass-card">
+        <div class="modal-icon">✔</div>
+        <h3>Request Received</h3>
+        <p>We'll notify you through your registered number and mail once the doctor confirms your slot.</p>
+        <button id="closeModal" class="btn">Great, thanks!</button>
+    </div>
+</div>
+
+<section class="doctor-skills reveal">
+    <h2>Why Choose Dr. Subhajit Mukherjee?</h2>
+    <div class="skills-grid">
+        <div class="skill-card">✔ Advanced Manual Therapy Techniques</div>
+        <div class="skill-card">✔ Post-Surgery Rehabilitation Expert</div>
+        <div class="skill-card">✔ Sports Injury Recovery Specialist</div>
+        <div class="skill-card">✔ Neurological Physiotherapy Care</div>
+        <div class="skill-card">✔ Personalized Treatment Planning</div>
+        <div class="skill-card">✔ Evidence-Based Therapy Approach</div>
+    </div>
+</section>
+
+<footer class="footer reveal">
+    <div class="footer-content">
+        <div class="footer-left">
+            <h3>Dr. Subhajit Mukherjee</h3>
+            <p>Providing expert physiotherapy care with a focus on long-term recovery and patient well-being.</p>
+        </div>
+
+        <div class="footer-right">
+            <p>📍 Ariadaha, Baranagar, Kolkata</p>
+            <p>📞 +91 76794 42194</p>
+            <p>📧 mukherjeesubhajitron02@gmail.com</p>
+            <p>🕒 Book Appointment</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Dr. Subhajit Mukherjee. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="js/appointment.js"></script>
+
+</html>
+</body>

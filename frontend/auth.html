@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Core Portal | Auth</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+    <main class="auth-wrapper">
+        <div class="auth-container" id="authContainer">
+            <header class="auth-header">
+                <h2><span class="login-text">Welcome Back</span><span class="register-text">Register Yourself</span></h2>
+                <p id="formSubtitle">Secure professional authentication...</p>
+            </header>
+
+            <form id="authForm" enctype="multipart/form-data">
+                
+                <div class="input-group">
+                    <label for="loginRole">Select Access Level</label>
+                    <select id="loginRole" name="role">
+                        <option value="patient">Patient</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="collaborator">Collaborating Doctor</option>
+                        <option value="staff">Staff/Accountant</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="name@clinic.com">
+                </div>
+                
+                <div class="input-group verification-box" style="border: 1px dashed var(--primary);">
+                    <label>Email Verification</label>
+                    <div style="display: flex; gap: 5px;">
+                        <input type="text" id="emailOtp" placeholder="Enter Email Code" style="flex: 2;">
+                        <button type="button" class="auth-btn" style="flex: 1; margin-top: 0;">Verify</button>
+                    </div>
+                </div>
+
+                <div class="register-only">
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+91 00000 00000">
+                    </div>
+                    
+                    <div class="input-group verification-box" style="border: 1px dashed var(--secondary);">
+                        <label>Phone Verification</label>
+                        <div style="display: flex; gap: 5px;">
+                            <input type="text" id="smsOtp" placeholder="Enter SMS Code" style="flex: 2;">
+                            <button type="button" class="auth-btn" style="flex: 1; margin-top: 0;">Verify</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="idType">Photo ID Type</label>
+                        <select id="idType" name="idType">
+                            <option value="aadhar">[ID Redacted]</option>
+                            <option value="voter">Voter ID</option>
+                            <option value="pan">PAN Card</option>
+                            <option value="license">Driving License</option>
+                            <option value="passport">Passport</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="idNumber">ID Document Number</label>
+                        <input type="text" id="idNumber" name="idNumber" placeholder="Enter ID Number">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="regName">Full Name</label>
+                        <input type="text" id="regName" name="name" placeholder="Enter Full Name">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="currentAddress">Current Address</label>
+                        <input type="text" id="currentAddress" name="currentAddress" placeholder="Enter Current Address">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="permanentAddress">Permanent Address</label>
+                        <input type="text" id="permanentAddress" name="permanentAddress" placeholder="Enter Permanent Address">
+                    </div>
+
+                    <div class="doc-upload-section">
+                        <label class="doc-section-title">REQUIRED DOCUMENTS</label>
+                        <label for="photo" class="file-upload-wrapper">👤 Passport Size Photo <div class="file-preview" id="preview-photo"></div></label>
+                        <input type="file" id="photo" name="photo" accept="image/*">
+                        
+                        <label for="signature" class="file-upload-wrapper">✍️ Signature <div class="file-preview" id="preview-signature"></div></label>
+                        <input type="file" id="signature" name="signature" accept="image/*">
+                        
+                        <label for="resume" class="file-upload-wrapper">📄 Resume/CV <div class="file-preview" id="preview-resume"></div></label>
+                        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+                        
+                        <label for="degree" class="file-upload-wrapper">🎓 Degree Certificate <div class="file-preview" id="preview-degree"></div></label>
+                        <input type="file" id="degree" name="degree" accept=".pdf,image/*">
+                        
+                        <label for="birthCert" class="file-upload-wrapper">📅 Birth Certificate <div class="file-preview" id="preview-birthCert"></div></label>
+                        <input type="file" id="birthCert" name="birthCert" accept=".pdf,image/*">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="••••••••">
+                </div>
+                
+                <div class="input-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="passwordConfirm" required placeholder="••••••••">
+                </div>
+
+                <button type="button" class="auth-btn" id="submitBtn">
+                    <span class="login-text">Login Now</span>
+                    <span class="register-text">Register Now</span>
+                </button>
+            </form>
+
+            <footer class="auth-footer">
+                <p class="login-text">New here? <span id="toRegister">Register Now</span></p>
+                <p class="register-text">Already a member? <span id="toLogin">Login Now</span></p>
+            </footer>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
