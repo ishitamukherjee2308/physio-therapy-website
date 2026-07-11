@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const appointmentForm = document.getElementById('appointmentForm');
     const modal = document.getElementById('confirmModal');
     const closeModal = document.getElementById('closeModal');
+    const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    const backendUrl = (isLocalHost || window.location.protocol === 'file:') && window.location.port !== '5000'
+        ? `http://${isLocalHost ? window.location.hostname : 'localhost'}:5000`
+        : '';
 
     revealElements();
 
@@ -26,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                const response = await fetch('/api/appointments', {
+                const response = await fetch(`${backendUrl}/api/appointments`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -46,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error("Database Connection Error:", error);
-                alert("The server is currently offline. Please ensure your Node.js backend is running (node server.js).");
+                alert("The server is currently offline. Start it with: node backend/server.js");
             } finally {
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;

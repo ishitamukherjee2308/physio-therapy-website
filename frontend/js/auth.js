@@ -9,7 +9,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const formStatus = document.getElementById('formStatus');
     const registrationFields = document.querySelectorAll('.register-only input, .register-only select');
 
-    const BACKEND_URL = '';
+    // Vercel serves the frontend and API from one origin. During local work the
+    // HTML is commonly opened with Live Server, so requests must use Express on
+    // port 5000 instead of Live Server's origin.
+    const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    const BACKEND_URL = (isLocalHost || window.location.protocol === 'file:') && window.location.port !== '5000'
+        ? `http://${isLocalHost ? window.location.hostname : 'localhost'}:5000`
+        : '';
 
     // 1. SESSION STABILITY
     try {
@@ -84,17 +90,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         submitBtn.disabled = true;
         submitBtn.textContent = isRegistering ? 'Registering...' : 'Signing in...';
         const formData = new FormData(authForm);
+        const payload = Object.fromEntries(formData);
+        delete payload.passwordConfirm;
         const endpoint = isRegistering ? '/api/auth/register' : '/api/auth/login';
 
         try {
             const response = await fetch(`${BACKEND_URL}${endpoint}`, {
                 method: 'POST',
-                body: isRegistering ? formData : JSON.stringify(Object.fromEntries(formData)),
-                headers: isRegistering ? {} : { 'Content-Type': 'application/json' },
+                // Documents are not stored by the current server, so sending a
+                // small JSON payload avoids serverless multipart upload limits.
+                body: JSON.stringify(payload),
+                headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
             });
 
-            const result = await response.json();
+            const contentType = response.headers.get('content-type') || '';
+            const result = contentType.includes('application/json')
+                ? await response.json()
+                : { message: `The server returned an unexpected response (HTTP ${response.status}).` };
 
             if (response.ok) {
                 if (isRegistering) {
@@ -107,7 +120,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         } catch (err) {
             console.error("Auth Error:", err);
-            if (formStatus) formStatus.textContent = 'Connection error. Please check your network.';
+            if (formStatus) {
+                formStatus.textContent = BACKEND_URL
+                    ? 'Cannot reach the local server. Start it with: node backend/server.js'
+                    : 'Cannot reach the server. Please try again shortly.';
+            }
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = isRegistering

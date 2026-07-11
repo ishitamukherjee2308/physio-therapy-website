@@ -4,7 +4,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 0. SECURITY FIRST
     document.body.style.visibility = 'hidden';
 
-    const BACKEND_URL = '';
+    const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    const BACKEND_URL = (isLocalHost || window.location.protocol === 'file:') && window.location.port !== '5000'
+        ? `http://${isLocalHost ? window.location.hostname : 'localhost'}:5000`
+        : '';
 
     // 1. ROBUST SECURITY GATEWAY
     const verifyAccess = async () => {
