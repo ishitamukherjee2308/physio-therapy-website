@@ -58,15 +58,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             data.forEach(patient => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${patient.name}</td>
-                    <td>${patient.problem}</td>
-                    <td>${patient.requestedSlot}</td>
-                    <td>
-                        <button class="btn-accept" data-id="${patient.id}" data-action="APPROVED">Accept</button>
-                        <button class="btn-reject" data-id="${patient.id}" data-action="REJECTED">Deny</button>
-                    </td>
-                `;
+                [patient.name, patient.problem, patient.requestedSlot].forEach((value) => {
+                    const cell = document.createElement('td');
+                    cell.textContent = value || '—';
+                    tr.appendChild(cell);
+                });
+
+                const actions = document.createElement('td');
+                [['btn-accept', 'APPROVED', 'Accept'], ['btn-reject', 'REJECTED', 'Deny']].forEach(([className, action, label]) => {
+                    const button = document.createElement('button');
+                    button.className = className;
+                    button.dataset.id = patient.id;
+                    button.dataset.action = action;
+                    button.textContent = label;
+                    actions.appendChild(button);
+                });
+                tr.appendChild(actions);
                 pendingListContainer.appendChild(tr);
             });
         } catch (err) {

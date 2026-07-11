@@ -504,3 +504,27 @@ header {
         gap: 50px;
     }
 }
+
+@media (max-width: 640px) {
+    .navbar, .navbar.active { padding: 14px 20px; gap: 12px; align-items: flex-start; }
+    .logo { font-size: 1.25rem; }
+    .nav-links { gap: 8px; flex-wrap: wrap; }
+    .nav-links a { font-size: 0.8rem; }
+    .btn-nav { padding: 8px 12px; }
+    .hero { min-height: auto; padding: 135px 20px 60px; gap: 40px; }
+    .hero-content p { font-size: 1rem; }
+    .hero-btns { flex-direction: column; }
+    .hero-btns a { width: 100%; text-align: center; padding: 13px 16px; }
+    .main-circle { width: min(78vw, 300px); height: min(78vw, 300px); border-width: 6px; }
+    .floating-card { right: 0; bottom: 20px; padding: 10px 14px; }
+    .stats { flex-direction: column; gap: 30px; padding: 55px 20px; }
+    .stat-item h2 { font-size: 2.8rem; }
+    section, .services, .about, .process, .faq { padding: 65px 20px; }
+    .section-header { margin-bottom: 35px; }
+    .section-header h2 { font-size: 2rem; }
+    .service-card, .step { padding: 28px 22px; }
+    .about-container { gap: 30px; }
+    .mini-card { margin: 10px 0; }
+    .footer { padding: 55px 20px 25px; }
+    .footer-grid { gap: 30px; margin-bottom: 35px; }
+}

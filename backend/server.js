@@ -8,7 +8,11 @@ const mongoose = require('mongoose');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET;
+// A signing key is required in production. Do not use a hard-coded production
+// fallback: it would allow forged sessions on a deployed site.
+const JWT_SECRET = process.env.JWT_SECRET || (process.env.NODE_ENV !== 'production'
+    ? 'local-development-secret-change-me'
+    : null);
 
 // Registration documents are not persisted by this application. Memory storage
 // keeps the serverless function compatible with Vercel's ephemeral filesystem.
@@ -55,6 +59,17 @@ const Appointment = mongoose.models.Appointment || mongoose.model('Appointment',
 
 const databaseIsReady = () => mongoose.connection.readyState === 1;
 
+const requireDoctor = (req, res, next) => {
+    if (!JWT_SECRET) return res.status(503).json({ message: 'Server authentication is not configured.' });
+    try {
+        const { role } = jwt.verify(req.cookies.auth_token, JWT_SECRET);
+        if (role !== 'doctor') return res.status(403).json({ message: 'Doctor access is required.' });
+        return next();
+    } catch {
+        return res.status(401).json({ message: 'Please sign in again.' });
+    }
+};
+
 // Used only for local development when MONGODB_URI has not been configured.
 const registeredUsers = [];
 const appointments = [{
@@ -90,6 +105,11 @@ app.post('/api/auth/register', upload.any(), async (req, res) => {
 
 app.post('/api/auth/login', async (req, res) => {
     const { email, password } = req.body;
+    if (!JWT_SECRET) {
+        return res.status(503).json({
+            message: 'Server authentication is not configured. Add JWT_SECRET to the deployment environment variables.'
+        });
+    }
     await databaseConnection;
     const user = databaseIsReady()
         ? await User.findOne({ email: (email || '').toLowerCase() }).lean()
@@ -98,10 +118,6 @@ app.post('/api/auth/login', async (req, res) => {
     if (!user || !(await bcrypt.compare(password || '', user.password))) {
         return res.status(401).json({ message: 'Invalid credentials.' });
     }
-    if (!JWT_SECRET) {
-        return res.status(500).json({ message: 'Server authentication is not configured.' });
-    }
-
     const token = jwt.sign({ role: user.role }, JWT_SECRET, { expiresIn: '24h' });
     res.cookie('auth_token', token, {
         httpOnly: true,
@@ -146,13 +162,13 @@ app.post('/api/appointments', async (req, res) => {
     return res.status(201).json({ success: true });
 });
 
-app.get('/api/admin/appointments', async (req, res) => {
+app.get('/api/admin/appointments', requireDoctor, async (req, res) => {
     await databaseConnection;
     if (databaseIsReady()) return res.json(await Appointment.find({ status: 'PENDING' }).lean());
     return res.json(appointments.filter(appointment => appointment.status === 'PENDING'));
 });
 
-app.patch('/api/appointments/:id', async (req, res) => {
+app.patch('/api/appointments/:id', requireDoctor, async (req, res) => {
     await databaseConnection;
     if (databaseIsReady()) {
         const appointment = await Appointment.findOneAndUpdate(

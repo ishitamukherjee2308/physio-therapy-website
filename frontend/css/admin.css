@@ -351,3 +351,19 @@ button {
         max-width: calc(100vw - 70px);
     }
 }
+
+@media (max-width: 640px) {
+    .admin-wrapper { display: block; }
+    .sidebar { position: sticky; width: 100%; height: auto; min-height: 0; padding: 14px 16px; border-right: 0; border-bottom: 1px solid var(--border); }
+    .sidebar h2 { display: block; margin: 0 0 12px; font-size: 1.1rem; }
+    .sidebar nav { flex-direction: row; overflow-x: auto; gap: 6px; padding-bottom: 2px; }
+    .sidebar nav a, .sidebar nav a:hover { font-size: 0.75rem; white-space: nowrap; padding: 8px 10px; }
+    .sidebar nav a::before { content: none; }
+    .content { margin-left: 0; max-width: none; padding: 20px 16px; }
+    .glass-card { padding: 22px 16px; border-radius: 18px; }
+    .glass-card h3 { font-size: 1.05rem; }
+    table { min-width: 580px; }
+    .fee-calculator { gap: 24px; }
+    .input-group, .input-group select { width: 100%; }
+    .btn-primary { width: 100%; }
+}

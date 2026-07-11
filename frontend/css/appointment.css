@@ -267,3 +267,18 @@ body {
     transform: translateY(0);
   }
 }
+
+@media (max-width: 640px) {
+  .navbar { padding: 15px 20px; gap: 12px; align-items: flex-start; }
+  .navbar h2 { font-size: 1.1rem; }
+  .navbar a { font-size: 0.85rem; }
+  .appointment-section { padding: 36px 16px; }
+  .form-container { padding: 28px 20px; border-radius: 16px; }
+  .form-container h1 { font-size: 1.75rem; }
+  .input-group { margin-bottom: 18px; }
+  .doctor-skills { padding: 55px 20px; }
+  .skills-grid { grid-template-columns: 1fr; gap: 15px; margin-top: 28px; }
+  .footer { padding: 45px 20px 20px; }
+  .footer-content { gap: 25px; }
+  .modal-content { width: calc(100% - 32px); padding: 28px 20px; }
+}

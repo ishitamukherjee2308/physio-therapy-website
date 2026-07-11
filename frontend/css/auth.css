@@ -22,11 +22,11 @@
 body {
     background: radial-gradient(circle at top left, #1a1a2e, var(--bg));
     color: #fff;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 /* AUTH CONTAINER */
@@ -207,6 +207,19 @@ input[type="file"] {
     margin-top: 20px;
 }
 
+.auth-btn:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.form-status {
+    min-height: 1.3rem;
+    margin-top: 12px;
+    color: #ffaaa5;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
 .register-text {
     display: none;
 }
@@ -303,4 +316,13 @@ input[type="file"] {
         width: 30px;
         height: 15px;
     }
+}
+
+@media (max-width: 640px) {
+    body { align-items: flex-start; }
+    .auth-wrapper { padding: 16px; }
+    .auth-container { max-height: none; min-height: calc(100vh - 32px); padding: 28px 20px; border-radius: 20px; }
+    .auth-header h2 { font-size: 1.8rem; }
+    .file-upload-wrapper { padding: 16px 12px; }
+    .modal-content { width: calc(100% - 32px); padding: 28px 20px; }
 }

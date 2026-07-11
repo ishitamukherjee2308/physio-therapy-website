@@ -34,28 +34,12 @@
                     <input type="email" id="email" name="email" required placeholder="name@clinic.com">
                 </div>
                 
-                <div class="input-group verification-box" style="border: 1px dashed var(--primary);">
-                    <label>Email Verification</label>
-                    <div style="display: flex; gap: 5px;">
-                        <input type="text" id="emailOtp" placeholder="Enter Email Code" style="flex: 2;">
-                        <button type="button" class="auth-btn" style="flex: 1; margin-top: 0;">Verify</button>
-                    </div>
-                </div>
-
                 <div class="register-only">
                     <div class="input-group">
                         <label for="phone">Phone Number</label>
                         <input type="tel" id="phone" name="phone" placeholder="+91 00000 00000">
                     </div>
                     
-                    <div class="input-group verification-box" style="border: 1px dashed var(--secondary);">
-                        <label>Phone Verification</label>
-                        <div style="display: flex; gap: 5px;">
-                            <input type="text" id="smsOtp" placeholder="Enter SMS Code" style="flex: 2;">
-                            <button type="button" class="auth-btn" style="flex: 1; margin-top: 0;">Verify</button>
-                        </div>
-                    </div>
-
                     <div class="input-group">
                         <label for="idType">Photo ID Type</label>
                         <select id="idType" name="idType">
@@ -116,15 +100,16 @@
                     <input type="password" id="password" name="password" required placeholder="••••••••">
                 </div>
                 
-                <div class="input-group">
+                <div class="input-group register-only">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="passwordConfirm" required placeholder="••••••••">
+                    <input type="password" id="confirmPassword" name="passwordConfirm" placeholder="••••••••">
                 </div>
 
-                <button type="button" class="auth-btn" id="submitBtn">
+                <button type="submit" class="auth-btn" id="submitBtn">
                     <span class="login-text">Login Now</span>
                     <span class="register-text">Register Now</span>
                 </button>
+                <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
             </form>
 
             <footer class="auth-footer">

@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const toLogin = document.getElementById('toLogin');
     const formSubtitle = document.getElementById('formSubtitle');
     const submitBtn = document.getElementById('submitBtn');
+    const formStatus = document.getElementById('formStatus');
+    const registrationFields = document.querySelectorAll('.register-only input, .register-only select');
 
     const BACKEND_URL = '';
 
@@ -15,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (sessionCheck.ok) {
             const data = await sessionCheck.json();
             if (data.role === 'doctor') window.location.href = 'admin.html';
-            else if (data.role === 'patient') window.location.href = 'dashboard.html';
+            else if (data.role) window.location.href = 'index.html';
         }
     } catch (err) {
         console.warn("Session check skipped.");
@@ -26,6 +28,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!authContainer) return;
         authContainer.className = isRegister ? 'auth-container mode-register' : 'auth-container mode-login';
         if (formSubtitle) formSubtitle.innerText = isRegister ? "Register for clinical access." : "Secure professional authentication.";
+        registrationFields.forEach((field) => {
+            if (field.id === 'regName' || field.id === 'confirmPassword') field.required = isRegister;
+        });
+        if (formStatus) formStatus.textContent = '';
     };
 
     document.addEventListener('change', (e) => {
@@ -63,14 +69,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     };
 
-    // 4. CLICK-BASED SUBMISSION
-    submitBtn.addEventListener('click', async (e) => {
+    // 4. FORM SUBMISSION
+    authForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        e.stopPropagation();
-
-        submitBtn.disabled = true;
 
         const isRegistering = authContainer.classList.contains('mode-register');
+        const password = document.getElementById('password').value;
+        const passwordConfirm = document.getElementById('confirmPassword').value;
+        if (isRegistering && password !== passwordConfirm) {
+            if (formStatus) formStatus.textContent = 'Passwords do not match.';
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = isRegistering ? 'Registering...' : 'Signing in...';
         const formData = new FormData(authForm);
         const endpoint = isRegistering ? '/api/auth/register' : '/api/auth/login';
 
@@ -88,16 +100,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (isRegistering) {
                     showSuccessModal();
                 } else {
-                    window.location.href = result.role === 'doctor' ? 'admin.html' : 'dashboard.html';
+                    window.location.href = result.role === 'doctor' ? 'admin.html' : 'index.html';
                 }
             } else {
-                alert(result.message || "Authentication failed.");
+                if (formStatus) formStatus.textContent = result.message || 'Authentication failed.';
             }
         } catch (err) {
             console.error("Auth Error:", err);
-            alert("Connection error. Please check your network.");
+            if (formStatus) formStatus.textContent = 'Connection error. Please check your network.';
         } finally {
             submitBtn.disabled = false;
+            submitBtn.innerHTML = isRegistering
+                ? '<span class="register-text">Register Now</span>'
+                : '<span class="login-text">Login Now</span>';
         }
     });
 
@@ -110,6 +125,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         e.preventDefault();
         setMode(false);
     });
+
+    setMode(false);
 
     // 5. DROPDOWN INIT
     document.querySelectorAll('select').forEach(el => {

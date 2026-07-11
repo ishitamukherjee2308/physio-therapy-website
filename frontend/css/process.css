@@ -304,3 +304,16 @@ body {
     transform: translate3d(30px, 0, 0);
   }
 }
+
+@media (max-width: 640px) {
+  .proc-nav { height: auto; min-height: var(--nav-height); padding: 14px 20px; gap: 14px; align-items: flex-start; }
+  .proc-nav .logo { font-size: 1.15rem; }
+  .links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+  .links a { margin-left: 0; font-size: 0.78rem; }
+  .links .cta { padding: 8px 12px; }
+  .proc-hero { padding: 65px 20px 30px; }
+  .proc-hero h1 { font-size: 2.35rem; }
+  .timeline-container { margin: 20px auto 50px; padding: 25px 16px; }
+  .step-content { padding: 24px 20px; }
+  .final-cta { padding: 65px 20px; }
+}
