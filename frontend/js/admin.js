@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 0. SECURITY FIRST
     document.body.style.visibility = 'hidden';
 
-    const BACKEND_URL = 'http://127.0.0.1:5000';
+    const BACKEND_URL = '';
 
     // 1. ROBUST SECURITY GATEWAY
     const verifyAccess = async () => {
