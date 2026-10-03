@@ -1,0 +1,45 @@
+[build]
+  publish = "frontend"
+  functions = "netlify/functions"
+
+# API Route proxy to Netlify serverless function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/api/:splat"
+  status = 200
+
+# Pretty URL redirects for frontend pages
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/process"
+  to = "/process.html"
+  status = 200
+
+[[redirects]]
+  from = "/faq"
+  to = "/faq.html"
+  status = 200
+
+[[redirects]]
+  from = "/reviews"
+  to = "/reviews.html"
+  status = 200
+
+[[redirects]]
+  from = "/appointment"
+  to = "/appointment.html"
+  status = 200
+
+[[redirects]]
+  from = "/auth"
+  to = "/auth.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
