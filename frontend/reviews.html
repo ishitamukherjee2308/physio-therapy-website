@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Subhajit Mukherjee, PT Reviews & Clinic Photos | Roy PhysioCare</title>
+    <meta name="description" content="Read authentic patient reviews, recovery testimonials, and browse clinic facility photos of Dr. Subhajit Mukherjee, PT at Roy PhysioCare, Ariadaha, Kolkata. 4.9/5 verified rating.">
+    <meta name="keywords" content="Dr. Subhajit Mukherjee PT Reviews, Dr Subhajit Mukherjee feedback, Roy PhysioCare reviews, Physiotherapist in Kolkata reviews, Clinic photos Dr Subhajit Mukherjee">
+    <meta name="author" content="Dr. Subhajit Mukherjee, PT">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://royphysiocare.com/reviews.html">
+    
+    <!-- External Resources -->
+    <link rel="stylesheet" href="css/reviews.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation Section -->
+    <nav class="navbar" id="navbar">
+        <div class="logo"><span>Dr.</span>Subhajit<span> Mukherjee</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="process.html">Process</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="reviews.html" class="active">Reviews</a></li>
+            <li><a href="appointment.html" class="btn-nav">Book Appointment</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="reviews-hero">
+        <div class="hero-badge">Patient Experiences & Testimonials</div>
+        <h1>Real Recoveries. <span>Real Stories.</span></h1>
+        <p>Read authentic feedback from patients who restored their mobility and returned to active life under Dr. Subhajit Mukherjee's clinical care.</p>
+        
+        <!-- Score Highlights -->
+        <div class="rating-overview-grid">
+            <div class="score-card">
+                <div class="big-score">4.9<span>/5</span></div>
+                <div class="stars">★★★★★</div>
+                <p>Overall Clinical Rating</p>
+            </div>
+            <div class="score-card">
+                <div class="big-score">98<span>%</span></div>
+                <div class="stat-tag">Satisfied</div>
+                <p>Recovery Success Rate</p>
+            </div>
+            <div class="score-card">
+                <div class="big-score">250<span>+</span></div>
+                <div class="stat-tag">Patients</div>
+                <p>Treated & Rehabilited</p>
+            </div>
+        </div>
+
+        <div class="hero-cta-wrap">
+            <button class="btn-scroll-form" id="heroReviewsBtn" type="button">✍️ Write a Patient Review</button>
+            <button class="btn-hero-photos" id="heroPhotosBtn" type="button">📸 View Clinic & Therapy Photos</button>
+            <button class="btn-hero-upload" id="openUploadModalBtn" type="button">➕ Doctor / Clinic Photo Upload</button>
+        </div>
+    </header>
+
+    <main class="reviews-main-container">
+
+        <!-- Main View Switcher Tabs -->
+        <div class="view-switcher-bar">
+            <button class="view-switch-btn active" id="tabReviewsBtn" type="button">
+                <span>💬 Verified Patient Reviews</span>
+                <span class="count-badge" id="reviewsCountBadge">...</span>
+            </button>
+            <button class="view-switch-btn" id="tabPhotosBtn" type="button">
+                <span>📸 Clinic & Treatment Photos</span>
+                <span class="badge-highlight">Pre-Checkup Tour</span>
+            </button>
+        </div>
+        
+        <!-- ================= SECTION 1: REVIEWS VIEW ================= -->
+        <div class="view-content active" id="reviewsViewContainer">
+            <!-- Filter Bar -->
+            <section class="filter-section">
+                <div class="section-title-wrap">
+                    <h2>Verified Patient <span>Feedback</span></h2>
+                    <p>Explore reviews by treatment category or rating</p>
+                </div>
+
+                <div class="filter-pills" id="filterPills">
+                    <button class="pill active" data-filter="all" type="button">All Reviews</button>
+                    <button class="pill" data-filter="Sports Injury" type="button">🏃 Sports Rehab</button>
+                    <button class="pill" data-filter="Post-Surgery" type="button">🧘 Post-Op Rehab</button>
+                    <button class="pill" data-filter="Shoulder" type="button">💪 Shoulder & Spine</button>
+                    <button class="pill" data-filter="5" type="button">⭐ 5 Stars Only</button>
+                </div>
+            </section>
+
+            <!-- Dynamic Reviews Cards Grid -->
+            <section class="reviews-grid-section">
+                <div class="reviews-grid" id="reviewsContainer">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading patient reviews...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Write a Review Form Section -->
+            <section class="submit-review-section" id="submitReviewSection">
+                <div class="form-glass-card">
+                    <div class="form-header">
+                        <span class="badge-sub">Your Voice Matters</span>
+                        <h2>Share Your <span>Recovery Journey</span></h2>
+                        <p>Help other patients in Kolkata make informed decisions about their physiotherapy care.</p>
+                    </div>
+
+                    <form id="reviewForm">
+                        <div class="form-row">
+                            <div class="input-field">
+                                <label for="reviewerName">Your Full Name *</label>
+                                <input type="text" id="reviewerName" name="name" placeholder="e.g. Rahul Sen" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="treatmentType">Treatment / Condition Treated *</label>
+                                <select id="treatmentType" name="treatment" required>
+                                    <option value="" disabled selected>Select treatment condition</option>
+                                    <option value="Sports Injury Recovery">Sports Injury Recovery</option>
+                                    <option value="Post-Surgery Rehabilitation">Post-Surgery Rehabilitation</option>
+                                    <option value="Frozen Shoulder & Joint Pain">Frozen Shoulder & Joint Pain</option>
+                                    <option value="Chronic Lower Back & Neck Pain">Chronic Lower Back & Neck Pain</option>
+                                    <option value="Neurological Rehabilitation">Neurological Rehabilitation</option>
+                                    <option value="Postural & Ergonomic Therapy">Postural & Ergonomic Therapy</option>
+                                    <option value="General Consultation">General Physiotherapy</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Star Rating Interactive Selector -->
+                        <div class="rating-field">
+                            <label>Your Overall Rating *</label>
+                            <div class="star-picker" id="starPicker">
+                                <span class="star-btn active" data-rating="1">★</span>
+                                <span class="star-btn active" data-rating="2">★</span>
+                                <span class="star-btn active" data-rating="3">★</span>
+                                <span class="star-btn active" data-rating="4">★</span>
+                                <span class="star-btn active" data-rating="5">★</span>
+                                <span class="rating-label" id="ratingLabel">5.0 / 5.0 (Exceptional Care)</span>
+                            </div>
+                            <input type="hidden" id="ratingValue" name="rating" value="5">
+                        </div>
+
+                        <div class="input-field">
+                            <label for="reviewMessage">Your Detailed Experience & Results *</label>
+                            <textarea id="reviewMessage" name="review" rows="4" placeholder="Tell us how Dr. Subhajit helped your pain, mobility, and recovery..." required></textarea>
+                        </div>
+
+                        <div class="recommend-toggle">
+                            <label class="checkbox-wrap">
+                                <input type="checkbox" id="recommendDoctor" name="recommend" checked>
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">Yes, I recommend Dr. Subhajit Mukherjee for physiotherapy treatment</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-submit-review" id="submitReviewBtn">
+                            <span>Submit Patient Review</span>
+                        </button>
+                        <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= SECTION 2: CLINIC PHOTOS VIEW ================= -->
+        <div class="view-content" id="photosViewContainer" style="display: none;">
+            
+            <section class="photos-header-section">
+                <div class="photos-title-row">
+                    <div class="section-title-wrap" style="text-align: left;">
+                        <span class="badge-sub">Pre-Checkup Facility Tour</span>
+                        <h2>Clinic & Treatment <span>Photo Gallery</span></h2>
+                        <p>Explore real photos of our therapy rooms, advanced equipment, and clinical procedures before booking your checkup.</p>
+                    </div>
+                    <div class="photos-action-wrap">
+                        <button class="btn-upload-trigger" id="triggerUploadModalBtn" type="button">
+                            <span>📷 + Upload Clinic Photo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Category Filter Pills -->
+                <div class="filter-pills" id="photoFilterPills">
+                    <button class="pill active" data-filter="all" type="button">All Photos</button>
+                    <button class="pill" data-filter="Clinic Facility" type="button">🏥 Clinic Facility</button>
+                    <button class="pill" data-filter="Equipment" type="button">⚡ Advanced Equipment</button>
+                    <button class="pill" data-filter="Spine & Neuro" type="button">🧘 Spine & Neuro Rehab</button>
+                    <button class="pill" data-filter="Sports" type="button">🏃 Sports Therapy</button>
+                </div>
+            </section>
+
+            <!-- Dynamic Photos Grid -->
+            <section class="photos-grid-section">
+                <div class="photos-grid" id="photosContainer">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading clinic photos...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pre-Checkup Tour Reassurance Banner -->
+            <section class="photo-info-box">
+                <div class="info-box-icon">🩺</div>
+                <div class="info-box-text">
+                    <h3>Transparent & Sanitized Clinical Environment</h3>
+                    <p>All therapy beds, electrotherapy probes, and rehabilitation equipment at Roy PhysioCare are sterilized after every single session. You are welcome to inspect our facility in person during your 60-minute initial consultation with Dr. Subhajit Mukherjee.</p>
+                </div>
+                <div class="info-box-action">
+                    <a href="appointment.html" class="btn-primary-cta" style="white-space: nowrap;">Book Checkup</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Final CTA Banner -->
+        <section class="review-cta-banner">
+            <div class="cta-inner">
+                <h3>Start Your Own Recovery Today</h3>
+                <p>Consult with Dr. Subhajit Mukherjee for customized, evidence-based physiotherapy.</p>
+                <a href="appointment.html" class="btn-primary-cta">Book Your Consultation</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <div class="logo">ROY<span> PHYSIOCARE</span></div>
+                <p>Premium physiotherapy care focused on long-term results and Neurorehabilitation.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact My Clinic</h4>
+                <p>📍 Ariadaha, Baranagar, Kolkata</p>
+                <p>📞 +91 70038 88046</p>
+                <p>📩 health@royphysiocare.com</p>
+                <p>📱 www.royphysiocare.com</p>
+                <p>🕒 Mon - Sat: 10AM - 12PM & 5PM - 9PM</p>
+            </div>
+            <div class="footer-links">
+                <h4>Personal Contact</h4>
+                <p>👨‍⚕️ Dr. Subhajit Mukherjee</p>
+                <p>📞 +91 76794 42194</p>
+                <p>📩 subhajitmukherjee.physio@gmail.com</p>
+                <p>💬 WhatsApp Available</p>
+                <p><a href="appointment.html" style="color: var(--accent); text-decoration: none;">📝 Book Appointment</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Dr. Subhajit Mukherjee | Roy PhysioCare. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Review Success Modal -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal-card">
+            <div class="modal-badge">🎉</div>
+            <h3>Thank You for Your Feedback!</h3>
+            <p>Your review has been successfully submitted and added to our clinical testimonials. Your words encourage both our doctor and new patients.</p>
+            <button class="btn-modal-close" id="closeReviewModal">Close & View Reviews</button>
+        </div>
+    </div>
+
+    <!-- Doctor / Clinic Photo Upload Modal -->
+    <div class="modal-overlay" id="uploadPhotoModal">
+        <div class="modal-card modal-upload-card">
+            <div class="modal-header-row">
+                <div class="modal-title-wrap">
+                    <span class="badge-sub">Clinic Administration</span>
+                    <h3>Upload Clinic Photo & Caption</h3>
+                </div>
+                <button class="btn-close-icon" id="closePhotoUploadModal" type="button" aria-label="Close modal">✕</button>
+            </div>
+            <p class="modal-sub">Add clear photos of the clinic, treatment setup, or advanced physiotherapy equipment with an informative caption so patients can check before their appointment.</p>
+            
+            <form id="photoUploadForm">
+                <div class="input-field">
+                    <label for="photoTitle">Photo Title / Equipment Name *</label>
+                    <input type="text" id="photoTitle" placeholder="e.g. Cervical & Lumbar Traction Machine" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="photoCategory">Category *</label>
+                    <select id="photoCategory" required>
+                        <option value="Clinic Facility">🏥 Clinic Facility & Bay</option>
+                        <option value="Equipment & Modalities">⚡ Advanced Equipment & Modalities</option>
+                        <option value="Spine & Neuro Rehab">🧘 Spine & Neuro Rehabilitation</option>
+                        <option value="Sports Therapy">🏃 Sports Therapy & Conditioning</option>
+                        <option value="Consultation Area">🩺 Consultation & Assessment Room</option>
+                    </select>
+                </div>
+
+                <div class="upload-source-toggle">
+                    <label>Photo Source *</label>
+                    <div class="source-pills">
+                        <button type="button" class="source-pill active" id="pillFileSource">📁 Select Image File</button>
+                        <button type="button" class="source-pill" id="pillUrlSource">🔗 Enter Image URL</button>
+                    </div>
+                </div>
+
+                <!-- Option A: File Upload -->
+                <div class="input-field" id="fileUploadWrapper">
+                    <label for="photoFileInput" class="custom-file-dropzone" id="dropzoneLabel">
+                        <span class="dropzone-icon">📷</span>
+                        <span class="dropzone-text" id="dropzoneText">Click to choose photo from device</span>
+                        <span class="dropzone-sub">Supports JPG, PNG, WEBP (Auto-compressed)</span>
+                    </label>
+                    <input type="file" id="photoFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <!-- Option B: URL Upload -->
+                <div class="input-field" id="urlUploadWrapper" style="display: none;">
+                    <label for="photoUrlInput">Image Web URL (HTTPS) *</label>
+                    <input type="url" id="photoUrlInput" placeholder="https://images.unsplash.com/... or image link">
+                </div>
+
+                <!-- Photo Preview Box -->
+                <div class="photo-preview-wrap" id="photoPreviewWrap" style="display: none;">
+                    <img id="photoPreviewImg" src="" alt="Selected Preview">
+                    <button type="button" class="btn-remove-preview" id="btnRemovePreview">✕ Remove</button>
+                </div>
+
+                <div class="input-field">
+                    <label for="photoCaption">Detailed Caption & Patient Guidance *</label>
+                    <textarea id="photoCaption" rows="3" placeholder="Describe the therapy purpose, equipment function, cleanliness protocols, or patient benefits..." required></textarea>
+                </div>
+
+                <div class="input-field">
+                    <label for="photoUploader">Uploaded By (Doctor / Clinic Designation)</label>
+                    <input type="text" id="photoUploader" value="Dr. Subhajit Mukherjee (Roy PhysioCare)">
+                </div>
+
+                <button type="submit" class="btn-submit-review" id="submitPhotoBtn">
+                    <span>🚀 Publish Photo with Caption</span>
+                </button>
+                <p class="form-feedback" id="photoFormFeedback" role="status" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Fullscreen Photo Lightbox Modal -->
+    <div class="modal-overlay modal-lightbox" id="photoLightboxModal">
+        <div class="lightbox-wrapper">
+            <button class="btn-lightbox-close" id="closeLightboxBtn" type="button" aria-label="Close Lightbox">✕</button>
+            <div class="lightbox-content">
+                <div class="lightbox-img-box">
+                    <img id="lightboxImg" src="" alt="Clinic Photo">
+                </div>
+                <div class="lightbox-info-box">
+                    <span class="badge-sub" id="lightboxCategory">Clinic Facility</span>
+                    <h3 id="lightboxTitle">Modern Treatment Bay</h3>
+                    <p class="lightbox-caption" id="lightboxCaption">Description here...</p>
+                    <div class="lightbox-meta">
+                        <span id="lightboxUploader">👨‍⚕️ Dr. Subhajit Mukherjee</span>
+                        <span id="lightboxDate">📅 Recent</span>
+                    </div>
+                    <div class="lightbox-cta-wrap">
+                        <a href="appointment.html" class="btn-primary-cta" style="width: 100%; text-align: center;">Book Consultation for This Treatment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/reviews.js"></script>
+
+</body>
+</html>

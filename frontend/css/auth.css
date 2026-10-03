@@ -60,6 +60,21 @@ body {
     border-radius: 10px;
 }
 
+.back-home-link {
+    display: inline-block;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.back-home-link:hover {
+    color: #fff;
+    transform: translateX(-3px);
+}
+
 /* HEADER */
 .auth-header h2 {
     font-size: 2.2rem;
@@ -118,83 +133,76 @@ body {
     outline: none;
 }
 
-/* CHOICES.JS */
+.input-group select {
+    width: 100%;
+    padding: 14px 16px;
+    background: #0f0f12;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+/* CHOICES OVERRIDES */
 .choices__inner {
     background-color: var(--input-bg) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 12px !important;
-    min-height: 48px;
-    padding: 8px 16px !important;
     color: #fff !important;
-    font-size: 0.95rem;
+    min-height: 48px !important;
+    padding: 4px 10px !important;
 }
 
 .choices__list--dropdown {
-    background-color: #111 !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: #0f0f12 !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 12px !important;
-    margin-top: 8px;
-    padding: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.choices__item {
+.choices__list--dropdown .choices__item--selectable {
+    color: #cbd5e1 !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background: rgba(0, 242, 255, 0.15) !important;
     color: #fff !important;
 }
 
-.choices__item--selectable:hover {
-    background-color: var(--glass) !important;
-    color: var(--primary) !important;
-}
-
-.choices[data-type*=select-one]:after {
+.choices[data-type*="select-one"]:after {
     border-color: var(--primary) transparent transparent transparent !important;
 }
 
-/* REGISTER ANIMATION */
-.register-only {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
+/* FILE UPLOAD STYLES */
+.file-upload-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--input-bg);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    padding: 14px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
 }
 
-.auth-container.mode-register .register-only {
-    max-height: 2000px;
-    opacity: 1;
+.file-upload-wrapper:hover {
+    border-color: var(--primary);
+    background: rgba(0, 242, 255, 0.05);
 }
 
-/* FILE UPLOAD */
+.file-preview {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
 input[type="file"] {
     display: none;
 }
 
-.file-upload-wrapper {
-    display: block;
-    width: 100%;
-    padding: 20px;
-    background: var(--input-bg);
-    border: 1px dashed rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    text-align: center;
-    color: #888;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-bottom: 15px;
-}
-
-.file-upload-wrapper:last-of-type {
-    margin-bottom: 0;
-}
-
-.file-preview {
-    margin-top: 5px;
-    font-size: 0.75rem;
-    color: var(--primary);
-}
-
-/* BUTTONS */
+/* SUBMIT BUTTON */
 .auth-btn {
     width: 100%;
     padding: 14px;
@@ -203,13 +211,27 @@ input[type="file"] {
     border-radius: 12px;
     color: #000;
     font-weight: 700;
+    font-size: 0.95rem;
     cursor: pointer;
     margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.auth-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 242, 255, 0.3);
 }
 
 .auth-btn:disabled {
     cursor: wait;
     opacity: 0.7;
+}
+
+.auth-btn:focus-visible,
+.input-group input:focus-visible,
+.choices__inner:focus-within {
+    outline: 3px solid rgba(0, 242, 255, 0.35);
+    outline-offset: 2px;
 }
 
 .form-status {
@@ -232,10 +254,14 @@ input[type="file"] {
     display: none !important;
 }
 
+.auth-container.mode-login .register-only {
+    display: none !important;
+}
+
 .auth-footer {
     margin-top: 20px;
     font-size: 0.85rem;
-    color: #666;
+    color: #888;
 }
 
 #toRegister,
@@ -243,10 +269,11 @@ input[type="file"] {
     color: var(--primary);
     cursor: pointer;
     text-decoration: underline;
+    font-weight: 600;
 }
 
 .input-group:has(#password) {
-    margin-top: 20px;
+    margin-top: 16px;
 }
 
 /* SUCCESS MODAL */
@@ -265,11 +292,12 @@ input[type="file"] {
 }
 
 .modal-content {
-    background: white;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     padding: 40px;
     border-radius: 20px;
     text-align: center;
-    color: #000;
+    color: #fff;
     animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -277,7 +305,7 @@ input[type="file"] {
     width: 80px;
     height: 80px;
     margin: 0 auto 20px;
-    border: 4px solid #28a745;
+    border: 4px solid #10b981;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -287,8 +315,8 @@ input[type="file"] {
 .check-icon {
     width: 30px;
     height: 15px;
-    border-bottom: 5px solid #28a745;
-    border-left: 5px solid #28a745;
+    border-bottom: 5px solid #10b981;
+    border-left: 5px solid #10b981;
     transform: rotate(-45deg);
     animation: drawTick 0.5s ease-in-out;
 }
@@ -325,4 +353,13 @@ input[type="file"] {
     .auth-header h2 { font-size: 1.8rem; }
     .file-upload-wrapper { padding: 16px 12px; }
     .modal-content { width: calc(100% - 32px); padding: 28px 20px; }
+}
+
+@media (max-width: 380px) {
+    .auth-wrapper { padding: 10px; }
+    .auth-container { min-height: calc(100vh - 20px); padding: 24px 16px; border-radius: 16px; }
+    .auth-header h2 { font-size: 1.55rem; }
+    .auth-header p, .auth-footer { font-size: 0.8rem; }
+    .input-group input:not([type="file"]) { padding: 12px 14px; }
+    .auth-btn { padding: 13px; }
 }

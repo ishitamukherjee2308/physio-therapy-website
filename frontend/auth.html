@@ -12,6 +12,8 @@
 
     <main class="auth-wrapper">
         <div class="auth-container" id="authContainer">
+            <a href="index.html" class="back-home-link">← Back to Website</a>
+            
             <header class="auth-header">
                 <h2><span class="login-text">Welcome Back</span><span class="register-text">Register Yourself</span></h2>
                 <p id="formSubtitle">Secure professional authentication...</p>
@@ -19,7 +21,7 @@
 
             <form id="authForm" enctype="multipart/form-data">
                 
-                <div class="input-group">
+                <div class="input-group register-only">
                     <label for="loginRole">Select Access Level</label>
                     <select id="loginRole" name="role">
                         <option value="patient">Patient</option>
@@ -31,7 +33,7 @@
 
                 <div class="input-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required placeholder="name@clinic.com">
+                    <input type="email" id="email" name="email" required autocomplete="email" placeholder="name@clinic.com">
                 </div>
                 
                 <div class="register-only">
@@ -43,7 +45,7 @@
                     <div class="input-group">
                         <label for="idType">Photo ID Type</label>
                         <select id="idType" name="idType">
-                            <option value="aadhar">[ID Redacted]</option>
+                            <option value="aadhar">Aadhaar Card</option>
                             <option value="voter">Voter ID</option>
                             <option value="pan">PAN Card</option>
                             <option value="license">Driving License</option>
@@ -97,12 +99,12 @@
 
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="••••••••">
+                    <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="••••••••">
                 </div>
                 
                 <div class="input-group register-only">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="passwordConfirm" placeholder="••••••••">
+                    <input type="password" id="confirmPassword" name="passwordConfirm" autocomplete="new-password" placeholder="••••••••">
                 </div>
 
                 <button type="submit" class="auth-btn" id="submitBtn">

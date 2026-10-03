@@ -3,7 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhysioTherapy | Dr.Subbhajit Mukherjee</title>
+    <title>Dr. Subhajit Mukherjee, PT | Best Physiotherapist in Kolkata | Roy PhysioCare</title>
+    
+    <!-- Primary SEO Meta Tags -->
+    <meta name="title" content="Dr. Subhajit Mukherjee, PT | Best Physiotherapist in Kolkata | Roy PhysioCare">
+    <meta name="description" content="Dr. Subhajit Mukherjee, PT is a leading consultant physiotherapist in Kolkata specializing in Neurorehabilitation, Sports Injury Recovery, Spinal Rehab, and Frozen Shoulder at Roy PhysioCare, Ariadaha, Baranagar. 4.9/5 patient rating. Book your consultation today.">
+    <meta name="keywords" content="Dr. Subhajit Mukherjee PT, Dr Subhajit Mukherjee, Dr Subhajit Mukherjee Physiotherapist, Roy PhysioCare, Physiotherapist in Kolkata, Ariadaha Baranagar Physiotherapist, Best Physiotherapist Kolkata, Sports Physiotherapy Kolkata, Neurorehabilitation Kolkata">
+    <meta name="author" content="Dr. Subhajit Mukherjee, PT">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://royphysiocare.com/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://royphysiocare.com/">
+    <meta property="og:title" content="Dr. Subhajit Mukherjee, PT | Best Physiotherapist in Kolkata">
+    <meta property="og:description" content="Consultant Physiotherapist specializing in Sports Injury Recovery, Neurorehab & Spine Care at Roy PhysioCare, Kolkata. Rated 4.9/5.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Dr. Subhajit Mukherjee, PT | Best Physiotherapist in Kolkata">
+    <meta property="twitter:description" content="Consultant Physiotherapist specializing in Sports Injury Recovery, Neurorehab & Spine Care at Roy PhysioCare, Kolkata.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Google Structured Data (JSON-LD Schema for Physician & MedicalBusiness) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Physician",
+      "name": "Dr. Subhajit Mukherjee, PT",
+      "jobTitle": "Consultant Physiotherapist",
+      "medicalSpecialty": [
+        "Physiotherapy",
+        "SportsMedicine",
+        "Neurorehabilitation"
+      ],
+      "description": "Dr. Subhajit Mukherjee, PT is a consultant physiotherapist in Kolkata specializing in Neurorehabilitation, Sports Injury Rehabilitation, and Spinal Decompression at Roy PhysioCare.",
+      "telephone": "+91 76794 42194",
+      "email": "subhajitmukherjee.physio@gmail.com",
+      "worksFor": {
+        "@type": "MedicalBusiness",
+        "name": "Roy PhysioCare",
+        "telephone": "+91 70038 88046",
+        "email": "health@royphysiocare.com",
+        "url": "https://royphysiocare.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Ariadaha",
+          "addressLocality": "Baranagar, Kolkata",
+          "addressRegion": "West Bengal",
+          "postalCode": "700057",
+          "addressCountry": "IN"
+        },
+        "openingHours": "Mo-Sa 10:00-12:00, 17:00-21:00"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "250",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+    </script>
     
     <!-- External Resources -->
     <link rel="stylesheet" href="css/index.css">
@@ -18,6 +80,8 @@
             <li><a href="about.html">About</a></li>
             <li><a href="process.html">Process</a></li>
             <li><a href="faq.html">FAQ</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="appointment.html">Appointment</a></li>
             <li><a href="auth.html" class="btn-nav">Admin Panel</a></li>
         </ul>
     </nav>
@@ -31,6 +95,7 @@
             <div class="hero-btns">
                 <a href="#contact" class="btn-primary">Visit Me in Clinic</a>
                 <a href="appointment.html" class="btn-secondary">Personal Appointment</a>
+                <a href="reviews.html" class="btn-secondary" style="border-color: var(--primary); color: var(--primary);">⭐ Reviews & Photos</a>
             </div>
         </div>
 
@@ -38,10 +103,10 @@
             <div class="main-circle">
                 <img src="image/IMG_20260428_223505.jpg.jpeg" alt="Professional Physiotherapy Treatment">
             </div>
-            <div class="floating-card">
-                <span>⭐ 4.9/5</span>
-                <p>Physio Therapist...</p>
-            </div>
+            <a href="reviews.html" class="floating-card" style="text-decoration: none; cursor: pointer;">
+                <span>⭐ 4.9/5 (250+ Reviews)</span>
+                <p>Read Patient Stories →</p>
+            </a>
         </div>
     </header>
 
@@ -50,16 +115,16 @@
     <!-- Stats Section -->
     <section class="stats" id="stats">
         <div class="stat-item">
-            <h2 class="counter">2</h2>
+            <h2 class="counter" data-target="2">2+</h2>
             <p>Years Experience</p>
         </div>
         <div class="stat-item">
-            <h2 class="counter">250</h2>
+            <h2 class="counter" data-target="250">250+</h2>
             <p>Happy Patients</p>
         </div>
         <div class="stat-item">
-            <h2 class="counter">7</h2>
-            <p>Clinic Experience of Month</p>
+            <h2 class="counter" data-target="7">7+</h2>
+            <p>Months Clinical Experience</p>
         </div>
     </section>
 
@@ -73,22 +138,22 @@
         </div>
 
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card reveal">
                 <div class="icon">🏃</div>
                 <h3>Sports Injury</h3>
                 <p>Specialized athlete recovery programs designed to return you to peak performance safely.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card reveal">
                 <div class="icon">🧘</div>
                 <h3>Post-Op Rehab</h3>
                 <p>Gentle and effective recovery plans following surgical procedures to restore mobility.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card reveal">
                 <div class="icon">🦴</div>
                 <h3>Chronic Pain</h3>
                 <p>Evidence-based management to eliminate long-term pain through manual therapy techniques.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card reveal">
                 <div class="icon">🧠</div>
                 <h3>Neurological Physio</h3>
                 <p>Support for patients with neurological conditions to improve balance and coordination.</p>
@@ -101,18 +166,18 @@
     <!-- About Section -->
     <section class="about" id="about">
         <div class="about-container">
-            <div class="about-text">
+            <div class="about-text reveal">
                 <span class="badge">Meet Your Specialist</span>
-                <h2>Dr. Subhajit Mukherjee <span>,BPT</span></h2>
-                <p>Expert skill in conducting comprehensive physical examinations, including gait analysis, postural evaluation, muscle strength testing and orthopedic testing...</p>
+                <h2>Dr. Subhajit Mukherjee <span>, BPT</span></h2>
+                <p>Expert skill in conducting comprehensive physical examinations, including gait analysis, postural evaluation, muscle strength testing and orthopedic testing.</p>
                 <ul class="features-list">
-                    <li>✅ Mastery of hands-on techniques like joint mobilization, soft issue release and myofascial work.</li>
+                    <li>✅ Mastery of hands-on techniques like joint mobilization, soft tissue release and myofascial work.</li>
                     <li>✅ Developing and monitoring customized programs for stretching, strengthening and functional movement.</li>
                     <li>✅ Detailed observation of body mechanics and functional movement patterns to identify root causes of pain or dysfunction.</li>
                 </ul>
             </div>
 
-            <div class="about-stats-grid">
+            <div class="about-stats-grid reveal">
                 <div class="mini-card">
                     <h3>98%</h3>
                     <p>Success Rate</p>
@@ -135,21 +200,58 @@
         </div>
 
         <div class="process-steps">
-            <div class="step">
+            <div class="step reveal">
                 <div class="step-number">01</div>
                 <h3>Detailed Assessment</h3>
                 <p>We analyze your movement patterns and identify the source of your discomfort.</p>
             </div>
-            <div class="step">
+            <div class="step reveal">
                 <div class="step-number">02</div>
                 <h3>Custom Treatment</h3>
                 <p>A mix of personalized manual therapy and exercises tailored just for you.</p>
             </div>
-            <div class="step">
+            <div class="step reveal">
                 <div class="step-number">03</div>
                 <h3>Injury Prevention</h3>
                 <p>Education on ergonomics and lifestyle changes to ensure long-term health.</p>
             </div>
+        </div>
+    </section>
+
+    <hr class="section-line">
+
+    <!-- Patient Reviews Highlight Section -->
+    <section class="reviews-preview" id="reviews-preview" style="padding: 100px 10%; background: linear-gradient(180deg, var(--secondary) 0%, #061024 100%); color: white;">
+        <div class="section-header">
+            <span class="badge" style="background: rgba(45, 212, 191, 0.2); color: var(--accent);">Patients' Trust</span>
+            <h2 style="color: white;">Patient <span>Feedback & Reviews</span></h2>
+            <p style="color: #cbd5e1;">Rated ⭐ 4.9/5 by 250+ recovered patients in Kolkata</p>
+        </div>
+
+        <div class="services-grid" style="margin-bottom: 40px;">
+            <div class="service-card reveal" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08);">
+                <div style="color: #f59e0b; font-size: 1.2rem; margin-bottom: 10px;">★★★★★</div>
+                <h3 style="color: var(--accent); font-size: 1.15rem; margin-bottom: 6px;">Aniket Sen</h3>
+                <span style="font-size: 0.8rem; color: #2dd4bf; display: block; margin-bottom: 12px; font-weight: 600;">🏃 Sports Injury Recovery</span>
+                <p style="color: #e2e8f0; font-size: 0.95rem;">“Torn ankle ligament in cricket. Dr. Subhajit's targeted therapy got me back on the field in 5 weeks pain-free!”</p>
+            </div>
+            <div class="service-card reveal" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08);">
+                <div style="color: #f59e0b; font-size: 1.2rem; margin-bottom: 10px;">★★★★★</div>
+                <h3 style="color: var(--accent); font-size: 1.15rem; margin-bottom: 6px;">Sangeeta Roy</h3>
+                <span style="font-size: 0.8rem; color: #2dd4bf; display: block; margin-bottom: 12px; font-weight: 600;">💪 Frozen Shoulder Therapy</span>
+                <p style="color: #e2e8f0; font-size: 0.95rem;">“Suffered for 7 months with shoulder stiffness. His manual mobilization provided 90% relief in just 3 weeks.”</p>
+            </div>
+            <div class="service-card reveal" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08);">
+                <div style="color: #f59e0b; font-size: 1.2rem; margin-bottom: 10px;">★★★★★</div>
+                <h3 style="color: var(--accent); font-size: 1.15rem; margin-bottom: 6px;">Rajesh Ganguly</h3>
+                <span style="font-size: 0.8rem; color: #2dd4bf; display: block; margin-bottom: 12px; font-weight: 600;">🧘 Post-Op Knee Rehab</span>
+                <p style="color: #e2e8f0; font-size: 0.95rem;">“Post-knee surgery rehabilitation was gentle and structured. Today I can walk and climb stairs without assistance.”</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            <a href="reviews.html" class="btn-primary" style="background: linear-gradient(45deg, var(--primary), var(--accent)); color: #000; font-weight: 800; padding: 15px 35px; border-radius: 30px; text-decoration: none; display: inline-block;">⭐ Read All Reviews & Share Yours</a>
+            <a href="reviews.html#photos" class="btn-secondary" style="background: rgba(15, 23, 42, 0.85); color: #fff; border: 1px solid rgba(0, 242, 255, 0.4); font-weight: 800; padding: 15px 35px; border-radius: 30px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">📸 View Clinic & Therapy Photos</a>
         </div>
     </section>
 
@@ -165,19 +267,19 @@
             <div class="faq-item">
                 <button class="faq-question">Which clinics are you affiliated with? <span>▼</span></button>
                 <div class="faq-answer">
-                    <p>Clarity on where you perform surgeries or admit patients, as this is a common question for independent doctors.</p>
+                    <p>Dr. Subhajit Mukherjee is affiliated with Roy PhysioCare located in Ariadaha, Baranagar, Kolkata, and also offers scheduled home visit rehabilitation sessions.</p>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-question">How long is each session? <span>▼</span></button>
                 <div class="faq-answer">
-                    <p>Initial assessments are 60 minutes. Follow-up sessions typically last 45 to 60 minutes.</p>
+                    <p>Initial assessments are 60 minutes. Follow-up sessions typically last 45 to 60 minutes depending on your condition.</p>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-question">Do I need a referral to see you? <span>▼</span></button>
                 <div class="faq-answer">
-                    <p>Explain whether patients can book directly or if they need a primary care physician's note.</p>
+                    <p>No primary doctor referral is required. You can book an appointment directly. If you have past X-rays or surgical discharge notes, please bring them along.</p>
                 </div>
             </div>
         </div>
@@ -186,39 +288,40 @@
     <hr class="section-line">
 
     <!-- Footer Section -->
-<footer class="footer" id="contact">
-    <div class="footer-grid">
-        <!-- Section 1: Branding -->
-        <div class="footer-info">
-            <div class="logo">ROY<span> PHYSIOCARE</span></div>
-            <p>Premium physiotherapy care focused on long-term results and Neurorehabilitation.</p>
+    <footer class="footer" id="contact">
+        <div class="footer-grid">
+            <!-- Section 1: Branding -->
+            <div class="footer-info">
+                <div class="logo">ROY<span> PHYSIOCARE</span></div>
+                <p>Premium physiotherapy care focused on long-term results and Neurorehabilitation.</p>
+            </div>
+
+            <!-- Section 2: Clinic Contact -->
+            <div class="footer-contact">
+                <h4>Contact My Clinic</h4>
+                <p>📍 Ariadaha, Baranagar, Kolkata</p>
+                <p>📞 +91 70038 88046</p>
+                <p>📩 health@royphysiocare.com</p>
+                <p>📱 www.royphysiocare.com</p>
+                <p>🕒 Mon - Sat: 10AM - 12PM & 5PM - 9PM</p>
+            </div>
+
+            <!-- Section 3: Personal Contact -->
+            <div class="footer-personal">
+                <h4>Personal Contact</h4>
+                <p>👨‍⚕️ Dr. Subhajit Mukherjee</p>
+                <p>📞 +91 76794 42194</p>
+                <p>📩 subhajitmukherjee.physio@gmail.com</p>
+                <p>💬 WhatsApp Available</p>
+                <p><a href="appointment.html" style="color: var(--accent); text-decoration: none;">📝 Book Appointment</a></p>
+                <p><a href="reviews.html" style="color: var(--primary-hover); text-decoration: none;">⭐ Patient Reviews & Feedback</a></p>
+            </div>
         </div>
 
-        <!-- Section 2: Clinic Contact -->
-        <div class="footer-contact">
-            <h4>Contact My Clinic</h4>
-            <p>📍 Ariadaha, Baranagar, Kolkata</p>
-            <p>📞 +91 70038 88046</p>
-            <p>📩 health@royphysiocare.com</p>
-            <p>📱 www.royphysiocare.com</p>
-            <p>🕒 Mon - Sat: 10AM - 12PM & 5AM - 9PM</p>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Roy PhysioCare. All Rights Reserved.</p>
         </div>
-
-        <!-- Section 3: Personal Contact -->
-        <div class="footer-personal">
-            <h4>Personal Contact</h4>
-            <p>👨‍⚕️ Dr. Subhajit Mukherjee</p>
-            <p>📞 +91 76794 42194</p>
-            <p>📩 mukherjeesubhajitron02@gmail.com</p>
-            <p>💬 WhatsApp Available</p>
-            <P>📝 Take appointment from here</P>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <p>&copy; 2026 Roy PhysioCare. All Rights Reserved.</p>
-    </div>
-</footer>
+    </footer>
 
     <!-- Script Injection -->
     <script src="js/index.js"></script>

@@ -1,6 +1,15 @@
 {
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/robots.txt", "destination": "/frontend/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/frontend/sitemap.xml" },
+    { "source": "/about", "destination": "/frontend/about.html" },
+    { "source": "/process", "destination": "/frontend/process.html" },
+    { "source": "/faq", "destination": "/frontend/faq.html" },
+    { "source": "/reviews", "destination": "/frontend/reviews.html" },
+    { "source": "/appointment", "destination": "/frontend/appointment.html" },
+    { "source": "/auth", "destination": "/frontend/auth.html" },
+    { "source": "/admin", "destination": "/frontend/admin.html" },
     { "source": "/", "destination": "/frontend/index.html" },
     { "source": "/(.*)", "destination": "/frontend/$1" }
   ]

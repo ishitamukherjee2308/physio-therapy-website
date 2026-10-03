@@ -1,12 +1,20 @@
-/* APPOINTMENT & DATABASE INTEGRATION LOGIC*/
+/* APPOINTMENT & DATABASE INTEGRATION LOGIC */
 document.addEventListener('DOMContentLoaded', () => {
     const appointmentForm = document.getElementById('appointmentForm');
     const modal = document.getElementById('confirmModal');
     const closeModal = document.getElementById('closeModal');
-    const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-    const backendUrl = (isLocalHost || window.location.protocol === 'file:') && window.location.port !== '5000'
-        ? `http://${isLocalHost ? window.location.hostname : 'localhost'}:5000`
-        : '';
+
+    const getBackendUrl = () => {
+        if (window.location.port === '5000') return '';
+        if (window.location.protocol === 'file:') return 'http://localhost:5000';
+        if (['localhost', '127.0.0.1'].includes(window.location.hostname) ||
+            window.location.hostname.startsWith('192.168.') ||
+            window.location.hostname.startsWith('10.')) {
+            return `http://${window.location.hostname}:5000`;
+        }
+        return '';
+    };
+    const backendUrl = getBackendUrl();
 
     revealElements();
 
@@ -15,18 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
         appointmentForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const submitBtn = appointmentForm.querySelector('.btn');
-            const originalText = submitBtn.innerText;
-            submitBtn.innerText = "Processing...";
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = "0.7";
+            const submitBtn = appointmentForm.querySelector('.btn') || appointmentForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn ? submitBtn.innerText : 'Confirm Appointment';
+
+            if (submitBtn) {
+                submitBtn.innerText = "Processing...";
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = "0.7";
+            }
 
             const payload = {
-                name: document.getElementById('name').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                date: document.getElementById('date').value,
-                message: document.getElementById('message').value.trim()
+                name: (document.getElementById('name')?.value || '').trim(),
+                phone: (document.getElementById('phone')?.value || '').trim(),
+                email: (document.getElementById('email')?.value || '').trim(),
+                date: document.getElementById('date')?.value || '',
+                time: document.getElementById('time')?.value || '05:00 PM',
+                message: (document.getElementById('message')?.value || '').trim()
             };
 
             try {
@@ -43,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok && result.success) {
                     if (modal) {
                         modal.classList.add('active');
+                    } else {
+                        alert(`Thank you ${payload.name}! Your appointment request has been submitted.`);
                     }
                     appointmentForm.reset();
                 } else {
@@ -50,11 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error("Database Connection Error:", error);
-                alert("The server is currently offline. Start it with: node backend/server.js");
+                alert("The server is currently unreachable. Start it with: node backend/server.js");
             } finally {
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = "1";
+                if (submitBtn) {
+                    submitBtn.innerText = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = "1";
+                }
             }
         });
     }
@@ -67,12 +83,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            window.location.href = "index.html";
-        }
-    });
+    if (modal) {
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                window.location.href = "index.html";
+            }
+        });
+    }
 
     /* 3. SCROLL REVEAL ANIMATIONS */
     function revealElements() {
@@ -88,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    window.addEventListener('scroll', revealElements);
+    window.addEventListener('scroll', revealElements, { passive: true });
 
     const dateInput = document.getElementById('date');
     if (dateInput) {

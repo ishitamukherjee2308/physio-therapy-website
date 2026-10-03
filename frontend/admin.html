@@ -16,6 +16,8 @@
                 <a href="#timetable">Weekly Schedule</a>
                 <a href="#fees">Fee Structure</a>
                 <a href="#history">Patient History</a>
+                <a href="index.html" class="nav-ext">← View Website</a>
+                <button id="logoutBtn" class="btn-logout" type="button">Sign Out</button>
             </nav>
         </aside>
 
@@ -27,24 +29,40 @@
                         <thead>
                             <tr>
                                 <th>Patient Name</th>
-                                <th>Problem</th>
+                                <th>Problem / Symptoms</th>
                                 <th>Requested Date/Time</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="pendingList"></tbody>
+                        <tbody id="pendingList">
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: var(--text-dim);">Loading requests...</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </section>
 
             <section id="timetable" class="glass-card">
-                <h3>Accepted Appointments & Free Slots</h3>
-                <div class="weekly-grid">
+                <h3>Accepted Appointments & Schedule</h3>
+                <div class="weekly-grid" id="scheduleGrid">
                     <div class="day-col">
                         <h4>Monday</h4>
-                        <div class="slot booked">10:00 AM - Rahul D.</div>
-                        <div class="slot free">11:00 AM - FREE</div>
-                        <div class="slot booked">02:00 PM - Priya S.</div>
+                        <div class="slot booked">10:00 AM - A. Pakhira</div>
+                        <div class="slot free">11:30 AM - FREE</div>
+                        <div class="slot booked">05:00 PM - Priya S.</div>
+                    </div>
+                    <div class="day-col">
+                        <h4>Tuesday</h4>
+                        <div class="slot free">10:00 AM - FREE</div>
+                        <div class="slot booked">02:00 PM - Rahul D.</div>
+                        <div class="slot free">05:00 PM - FREE</div>
+                    </div>
+                    <div class="day-col">
+                        <h4>Wednesday</h4>
+                        <div class="slot booked">10:00 AM - Modhurima Di</div>
+                        <div class="slot free">11:30 AM - FREE</div>
+                        <div class="slot booked">06:30 PM - Amit K.</div>
                     </div>
                 </div>
             </section>
@@ -53,16 +71,17 @@
                 <h3>Smart Fee Management</h3>
                 <div class="fee-calculator">
                     <div class="input-group">
-                        <label>Select Problem Complexity</label>
+                        <label for="problemType">Select Problem Complexity</label>
                         <select id="problemType">
                             <option value="500">General Consultation (₹500)</option>
                             <option value="1200">Sports Injury Rehab (₹1200)</option>
                             <option value="800">Post-Surgery Therapy (₹800)</option>
+                            <option value="1500">Neurological Rehabilitation (₹1500)</option>
                         </select>
                     </div>
                     <div class="suggested-box">
                         <p>Suggested Fee for Patient: <strong id="suggestedFee">₹500</strong></p>
-                        <button class="btn-primary">Send Fee Quote</button>
+                        <button class="btn-primary" id="sendFeeBtn" type="button">Send Fee Quote</button>
                     </div>
                 </div>
             </section>
@@ -73,9 +92,9 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Date</th>
+                                <th>Date / Slot</th>
                                 <th>Name</th>
-                                <th>Contact</th>
+                                <th>Status / Problem</th>
                                 <th>Prescription</th>
                             </tr>
                         </thead>
@@ -83,8 +102,8 @@
                             <tr>
                                 <td>18 Jan 2026</td>
                                 <td>Modhurima Di</td>
-                                <td>+91 XXXXX-XXXXX</td>
-                                <td><button class="btn-view">View RX</button></td>
+                                <td>Post-Surgery Lumbar Decompression</td>
+                                <td><button class="btn-view" type="button" data-name="Modhurima Di" data-rx="Post-Surgery Lumbar Decompression Rehab | 10 sessions">View RX</button></td>
                             </tr>
                         </tbody>
                     </table>

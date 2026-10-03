@@ -11,7 +11,13 @@
 
 <nav class="navbar">
     <h2>Dr. Subhajit Mukherjee</h2>
-    <a href="index.html">⬅ Back to Home</a>
+    <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+        <a href="index.html">⬅ Back to Home</a>
+        <a href="about.html">About</a>
+        <a href="process.html">Process</a>
+        <a href="faq.html">FAQ</a>
+        <a href="reviews.html">Reviews</a>
+    </div>
 </nav>
 
 <section class="appointment-section">
@@ -35,23 +41,22 @@
                 <input 
                     type="tel" 
                     id="phone" 
-                    placeholder="Enter phone number"
+                    placeholder="+91 00000 00000"
                     required
                 >
             </fieldset>
 
             <fieldset class="input-group">
-                <legend>Email ID</legend>
+                <legend>Email ID (Optional)</legend>
                 <input 
                     type="email" 
                     id="email" 
-                    placeholder="Enter email address"
-                    required
+                    placeholder="name@example.com"
                 >
             </fieldset>
 
             <fieldset class="input-group">
-                <legend>Select Date</legend>
+                <legend>Preferred Date</legend>
                 <input 
                     type="date" 
                     id="date" 
@@ -60,10 +65,22 @@
             </fieldset>
 
             <fieldset class="input-group">
-                <legend>Describe Your Issue</legend>
+                <legend>Preferred Time Slot</legend>
+                <select id="time" style="width: 100%; padding: 12px 15px; background: transparent; border: none; color: white; font-size: 15px; outline: none; cursor: pointer;">
+                    <option value="10:00 AM" style="background: #0f172a; color: #fff;">10:00 AM - Morning Slot</option>
+                    <option value="11:30 AM" style="background: #0f172a; color: #fff;">11:30 AM - Morning Slot</option>
+                    <option value="02:00 PM" style="background: #0f172a; color: #fff;">02:00 PM - Afternoon Slot</option>
+                    <option value="05:00 PM" style="background: #0f172a; color: #fff;" selected>05:00 PM - Evening Slot</option>
+                    <option value="06:30 PM" style="background: #0f172a; color: #fff;">06:30 PM - Evening Slot</option>
+                    <option value="08:00 PM" style="background: #0f172a; color: #fff;">08:00 PM - Evening Slot</option>
+                </select>
+            </fieldset>
+
+            <fieldset class="input-group">
+                <legend>Describe Your Problem / Symptoms</legend>
                 <textarea 
                     id="message" 
-                    placeholder="How can we help you?"
+                    placeholder="E.g., Sports injury, lower back pain, knee stiffness..."
                     required
                 ></textarea>
             </fieldset>
@@ -82,7 +99,7 @@
     <div class="modal-content glass-card">
         <div class="modal-icon">✔</div>
         <h3>Request Received</h3>
-        <p>We'll notify you through your registered number and mail once the doctor confirms your slot.</p>
+        <p>We'll notify you through your phone number and email once the doctor reviews and confirms your slot.</p>
         <button id="closeModal" class="btn">Great, thanks!</button>
     </div>
 </div>
@@ -109,8 +126,8 @@
         <div class="footer-right">
             <p>📍 Ariadaha, Baranagar, Kolkata</p>
             <p>📞 +91 76794 42194</p>
-            <p>📧 mukherjeesubhajitron02@gmail.com</p>
-            <p>🕒 Book Appointment</p>
+            <p>📧 subhajitmukherjee.physio@gmail.com</p>
+            <p>🕒 Clinic: Mon - Sat: 10AM - 12PM & 5PM - 9PM</p>
         </div>
     </div>
 

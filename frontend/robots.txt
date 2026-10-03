@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/admin
+Disallow: /auth
+
+# Search engine sitemap
+Sitemap: https://royphysiocare.com/sitemap.xml
