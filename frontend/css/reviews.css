@@ -657,6 +657,7 @@ body {
 .star-picker {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
     margin-top: 8px;
 }
@@ -1423,4 +1424,19 @@ body {
     .modal-upload-card {
         padding: 25px 18px;
     }
+}
+
+@media (max-width: 480px) {
+    .reviews-hero h1 { font-size: 2.1rem; }
+    .hero-cta-wrap { flex-direction: column; width: 100%; }
+    .btn-scroll-form, .btn-hero-photos, .btn-hero-upload { width: 100%; justify-content: center; }
+    .photos-action-wrap { width: 100%; }
+    .photos-action-wrap button, .photos-action-wrap a { width: 100%; justify-content: center; text-align: center; }
+    .star-btn { font-size: 1.85rem; }
+    .rating-label { margin-left: 0; width: 100%; margin-top: 4px; }
+    .form-glass-card { padding: 24px 16px; border-radius: 18px; }
+    .form-header h2 { font-size: 1.7rem; }
+    .view-switcher-bar { padding: 4px; }
+    .view-switch-btn { padding: 12px 14px; font-size: 0.88rem; }
+    .review-card { padding: 20px 16px; border-radius: 18px; }
 }

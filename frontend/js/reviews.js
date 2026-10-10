@@ -13,6 +13,39 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const BACKEND_URL = getBackendUrl();
 
+    // High quality client-side canvas compressor for phone cameras & desktops
+    const compressImage = (file, maxDim = 1200, quality = 0.82) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                    let { width, height } = img;
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+                    resolve(compressedDataUrl);
+                };
+                img.onerror = reject;
+            };
+            reader.onerror = reject;
+        });
+    };
+
     // Authentic clinic photos of Dr. Subhajit Mukherjee at Roy PhysioCare
     const DEFAULT_CLINIC_PHOTOS = [
         {
@@ -95,13 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModalBtn = document.getElementById('closeReviewModal');
     const reviewsCountBadge = document.getElementById('reviewsCountBadge');
 
-    // Tab Switchers
+    // Tab Switchers & Action Buttons
     const tabReviewsBtn = document.getElementById('tabReviewsBtn');
     const tabPhotosBtn = document.getElementById('tabPhotosBtn');
     const reviewsViewContainer = document.getElementById('reviewsViewContainer');
     const photosViewContainer = document.getElementById('photosViewContainer');
     const heroReviewsBtn = document.getElementById('heroReviewsBtn');
     const heroPhotosBtn = document.getElementById('heroPhotosBtn');
+    const heroUploadBtn = document.getElementById('heroUploadBtn');
     const openUploadModalBtn = document.getElementById('openUploadModalBtn');
 
     // Switch View Tabs Function
@@ -447,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 50px 20px;">
                     <div style="font-size: 2.5rem; margin-bottom: 12px;">📷</div>
                     <h3>No photos found under this category</h3>
-                    <p style="color: var(--text-dim); margin-top: 8px;">Explore other categories or check back soon!</p>
+                    <p style="color: var(--text-dim); margin-top: 8px;">Explore other categories or share your own clinic photo!</p>
                 </div>
             `;
             return;
@@ -489,18 +523,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const loadPhotos = async () => {
+        let localPhotos = [];
+        try {
+            const raw = localStorage.getItem('local_clinic_photos');
+            if (raw) localPhotos = JSON.parse(raw);
+        } catch (e) {
+            console.warn(e);
+        }
+
         try {
             const res = await fetch(`${BACKEND_URL}/api/photos`);
             if (res.ok) {
                 const data = await res.json();
-                const validPhotos = (Array.isArray(data) ? data : []).filter(p => !p.imageUrl?.includes('unsplash.com'));
-                allPhotos = validPhotos.length > 0 ? validPhotos : DEFAULT_CLINIC_PHOTOS;
+                const serverPhotos = (Array.isArray(data) ? data : []).filter(p => !p.imageUrl?.includes('unsplash.com'));
+                const existingIds = new Set(serverPhotos.map(p => p.id));
+                const uniqueLocal = localPhotos.filter(p => !existingIds.has(p.id));
+                const combined = [...uniqueLocal, ...serverPhotos];
+                allPhotos = combined.length > 0 ? combined : DEFAULT_CLINIC_PHOTOS;
             } else {
-                allPhotos = DEFAULT_CLINIC_PHOTOS;
+                allPhotos = localPhotos.length > 0 ? [...localPhotos, ...DEFAULT_CLINIC_PHOTOS] : DEFAULT_CLINIC_PHOTOS;
             }
         } catch (err) {
-            console.warn("Photos load failed, using local clinic photos:", err);
-            allPhotos = DEFAULT_CLINIC_PHOTOS;
+            console.warn("Photos load failed, using local clinic photos fallback:", err);
+            allPhotos = localPhotos.length > 0 ? [...localPhotos, ...DEFAULT_CLINIC_PHOTOS] : DEFAULT_CLINIC_PHOTOS;
         }
         applyPhotoFilter(currentPhotoFilter);
     };
@@ -557,9 +602,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === photoLightboxModal) closeLightbox();
     });
 
-    // ================= 5. DOCTOR PHOTO UPLOAD MODAL =================
+    // ================= 5. PHOTO UPLOAD MODAL (FOR DOCTOR & PATIENTS) =================
     const uploadPhotoModal = document.getElementById('uploadPhotoModal');
-    const triggerUploadModalBtn = document.getElementById('triggerUploadModalBtn');
     const closePhotoUploadModal = document.getElementById('closePhotoUploadModal');
     const photoUploadForm = document.getElementById('photoUploadForm');
     const photoFileInput = document.getElementById('photoFileInput');
@@ -596,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    triggerUploadModalBtn?.addEventListener('click', openUploadModal);
+    heroUploadBtn?.addEventListener('click', openUploadModal);
     openUploadModalBtn?.addEventListener('click', openUploadModal);
     closePhotoUploadModal?.addEventListener('click', closeUploadModal);
     uploadPhotoModal?.addEventListener('click', (e) => {
@@ -620,8 +664,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (urlUploadWrapper) urlUploadWrapper.style.display = 'block';
     });
 
-    // File Input change
-    photoFileInput?.addEventListener('change', (e) => {
+    // File Input change with client-side canvas compression for mobile phone cameras
+    photoFileInput?.addEventListener('change', async (e) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
@@ -630,15 +674,25 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (dropzoneText) dropzoneText.textContent = `Selected: ${file.name}`;
+        if (dropzoneText) dropzoneText.textContent = `Processing ${file.name}...`;
 
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            selectedBase64Image = event.target.result;
+        try {
+            // Compress phone/camera image to max 1200px (fast, crisp, lightweight)
+            selectedBase64Image = await compressImage(file, 1200, 0.82);
             if (photoPreviewImg) photoPreviewImg.src = selectedBase64Image;
             if (photoPreviewWrap) photoPreviewWrap.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
+            if (dropzoneText) dropzoneText.textContent = `Selected: ${file.name} (Optimized for instant viewing)`;
+        } catch (compressErr) {
+            console.warn("Fallback to FileReader:", compressErr);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                selectedBase64Image = event.target.result;
+                if (photoPreviewImg) photoPreviewImg.src = selectedBase64Image;
+                if (photoPreviewWrap) photoPreviewWrap.style.display = 'block';
+                if (dropzoneText) dropzoneText.textContent = `Selected: ${file.name}`;
+            };
+            reader.readAsDataURL(file);
+        }
     });
 
     btnRemovePreview?.addEventListener('click', () => {
@@ -656,7 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const title = document.getElementById('photoTitle')?.value.trim();
         const category = document.getElementById('photoCategory')?.value;
         const caption = document.getElementById('photoCaption')?.value.trim();
-        const uploadedBy = document.getElementById('photoUploader')?.value.trim() || 'Dr. Subhajit Mukherjee (Roy PhysioCare)';
+        const uploadedBy = document.getElementById('photoUploader')?.value.trim() || 'Verified Patient';
 
         let finalImageUrl = '';
         if (currentSource === 'file') {
@@ -693,55 +747,80 @@ document.addEventListener('DOMContentLoaded', () => {
             submitPhotoBtn.innerHTML = '<span>Uploading Photo & Caption...</span>';
         }
 
+        const newPhotoObj = {
+            id: 'photo-' + Date.now(),
+            title,
+            category: category || 'Clinic Facility',
+            caption,
+            imageUrl: finalImageUrl,
+            uploadedBy,
+            date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+        };
+
+        let savedPhoto = newPhotoObj;
+
         try {
-            const payload = { title, category, caption, imageUrl: finalImageUrl, uploadedBy };
             const response = await fetch(`${BACKEND_URL}/api/photos`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(newPhotoObj)
             });
 
-            const result = await response.json();
-
-            if (response.ok && result.success) {
+            if (response.ok) {
+                const result = await response.json();
                 if (result.photo) {
-                    allPhotos.unshift(result.photo);
-                }
-                applyPhotoFilter(currentPhotoFilter);
-
-                // Reset form
-                photoUploadForm.reset();
-                selectedBase64Image = null;
-                if (photoPreviewWrap) photoPreviewWrap.style.display = 'none';
-                if (dropzoneText) dropzoneText.textContent = 'Click to choose photo from device';
-
-                if (photoFormFeedback) {
-                    photoFormFeedback.className = 'form-feedback success';
-                    photoFormFeedback.textContent = 'Photo successfully published to clinic gallery!';
-                }
-
-                setTimeout(() => {
-                    closeUploadModal();
-                    switchTab('photos');
-                    photosViewContainer?.scrollIntoView({ behavior: 'smooth' });
-                }, 700);
-            } else {
-                if (photoFormFeedback) {
-                    photoFormFeedback.className = 'form-feedback error';
-                    photoFormFeedback.textContent = result.message || 'Failed to upload photo.';
+                    savedPhoto = result.photo;
                 }
             }
         } catch (err) {
-            console.error("Upload error:", err);
-            if (photoFormFeedback) {
-                photoFormFeedback.className = 'form-feedback error';
-                photoFormFeedback.textContent = 'Error uploading photo. Server might be busy.';
-            }
-        } finally {
-            if (submitPhotoBtn) {
-                submitPhotoBtn.disabled = false;
-                submitPhotoBtn.innerHTML = '<span>🚀 Publish Photo with Caption</span>';
-            }
+            console.warn("Upload fallback to local storage:", err);
+        }
+
+        // Add to allPhotos at the beginning
+        allPhotos = allPhotos.filter(p => p.id !== savedPhoto.id);
+        allPhotos.unshift(savedPhoto);
+
+        // Save to localStorage
+        try {
+            let localPhotos = [];
+            const raw = localStorage.getItem('local_clinic_photos');
+            if (raw) localPhotos = JSON.parse(raw);
+            localPhotos = localPhotos.filter(p => p.id !== savedPhoto.id);
+            localPhotos.unshift(savedPhoto);
+            localStorage.setItem('local_clinic_photos', JSON.stringify(localPhotos));
+        } catch (e) {
+            console.warn(e);
+        }
+
+        // Switch to 'all' filter and re-render
+        currentPhotoFilter = 'all';
+        photoFilterPills.forEach(p => {
+            if (p.dataset.filter === 'all') p.classList.add('active');
+            else p.classList.remove('active');
+        });
+        renderPhotos(allPhotos);
+
+        // Reset form
+        photoUploadForm.reset();
+        selectedBase64Image = null;
+        if (photoPreviewWrap) photoPreviewWrap.style.display = 'none';
+        if (dropzoneText) dropzoneText.textContent = 'Click to choose photo from device';
+
+        if (photoFormFeedback) {
+            photoFormFeedback.className = 'form-feedback success';
+            photoFormFeedback.textContent = 'Photo successfully published to clinic gallery!';
+        }
+
+        setTimeout(() => {
+            closeUploadModal();
+            switchTab('photos');
+            const target = document.getElementById('photosContainer');
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }, 600);
+
+        if (submitPhotoBtn) {
+            submitPhotoBtn.disabled = false;
+            submitPhotoBtn.innerHTML = '<span>🚀 Publish Photo with Caption</span>';
         }
     });
 

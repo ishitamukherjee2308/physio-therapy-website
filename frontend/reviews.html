@@ -57,6 +57,7 @@
         <div class="hero-cta-wrap">
             <button class="btn-scroll-form" id="heroReviewsBtn" type="button">✍️ Write a Patient Review</button>
             <button class="btn-hero-photos" id="heroPhotosBtn" type="button">📸 View Clinic & Therapy Photos</button>
+            <button class="btn-hero-upload" id="heroUploadBtn" type="button">➕ Share / Upload Photo</button>
         </div>
     </header>
 
@@ -179,8 +180,11 @@
                         <h2>Clinic & Treatment <span>Photo Gallery</span></h2>
                         <p>Explore real photos of our therapy rooms, advanced equipment, and clinical procedures before booking your checkup.</p>
                     </div>
-                    <div class="photos-action-wrap">
-                        <a href="appointment.html" class="btn-primary-cta" style="font-size: 0.9rem; padding: 11px 22px; text-decoration: none;">
+                    <div class="photos-action-wrap" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button class="btn-primary-cta" id="openUploadModalBtn" type="button" style="font-size: 0.9rem; padding: 11px 22px; cursor: pointer; border: none; background: linear-gradient(135deg, #0d9488, #00f2ff); color: #020617; font-weight: 700; border-radius: 10px; display: inline-flex; align-items: center; gap: 6px;">
+                            <span>📸 Upload Clinic / Therapy Photo</span>
+                        </button>
+                        <a href="appointment.html" class="btn-nav" style="font-size: 0.9rem; padding: 11px 22px; text-decoration: none; display: inline-flex; align-items: center;">
                             <span>📅 Book Checkup Visit</span>
                         </a>
                     </div>
@@ -274,12 +278,12 @@
         <div class="modal-card modal-upload-card">
             <div class="modal-header-row">
                 <div class="modal-title-wrap">
-                    <span class="badge-sub">Clinic Administration</span>
-                    <h3>Upload Clinic Photo & Caption</h3>
+                    <span class="badge-sub">Patient & Clinic Gallery</span>
+                    <h3>Share Clinic or Recovery Photo</h3>
                 </div>
                 <button class="btn-close-icon" id="closePhotoUploadModal" type="button" aria-label="Close modal">✕</button>
             </div>
-            <p class="modal-sub">Add clear photos of the clinic, treatment setup, or advanced physiotherapy equipment with an informative caption so patients can check before their appointment.</p>
+            <p class="modal-sub">Patients, visitors, and clinic staff can share photos of their recovery sessions, therapy exercises, or clinic visit with an informative caption.</p>
             
             <form id="photoUploadForm">
                 <div class="input-field">
@@ -334,8 +338,8 @@
                 </div>
 
                 <div class="input-field">
-                    <label for="photoUploader">Uploaded By (Doctor / Clinic Designation)</label>
-                    <input type="text" id="photoUploader" value="Dr. Subhajit Mukherjee (Roy PhysioCare)">
+                    <label for="photoUploader">Your Name / Designation *</label>
+                    <input type="text" id="photoUploader" placeholder="e.g. S. Mukherjee (Patient) or Dr. Subhajit Mukherjee" required>
                 </div>
 
                 <button type="submit" class="btn-submit-review" id="submitPhotoBtn">
