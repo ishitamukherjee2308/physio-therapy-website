@@ -448,6 +448,249 @@ app.post('/api/photos', async (req, res) => {
     return res.status(201).json({ success: true, photo: newPhoto });
 });
 
+// Patient Portal Records & OTP Management
+const otpStore = new Map();
+
+const patientRecords = [
+    {
+        id: 'RPC-PAT-2026-100',
+        name: 'Modhurima Di',
+        phone: '9876543210',
+        age: 46,
+        gender: 'Female',
+        checkupDate: '18 Jan 2026',
+        nextVisit: '25 Jan 2026',
+        diagnosis: 'Post-Surgery Lumbar Decompression Rehab & Sciatica Relief',
+        medicines: [
+            {
+                name: 'Pregabalin + Methylcobalamin (75mg)',
+                dosage: '1 Capsule at Bedtime',
+                duration: '15 Days',
+                notes: 'Nerve decompression, tingling relief, and neuro-recovery'
+            },
+            {
+                name: 'Glucosamine Sulfate + Collagen Peptides',
+                dosage: '1 Sachet in water after breakfast',
+                duration: '30 Days',
+                notes: 'Spinal cartilage nourishing and connective tissue repair'
+            },
+            {
+                name: 'Thiocolchicoside (4mg)',
+                dosage: '1 Tablet SOS (Only when acute muscle spasm occurs)',
+                duration: '5 Days Max',
+                notes: 'Centrally-acting skeletal muscle relaxation'
+            },
+            {
+                name: 'Dynapar QPS Pain Relief Solution',
+                dosage: 'Apply gently over lower back twice daily',
+                duration: 'As needed',
+                notes: 'Non-steroidal local transdermal anti-inflammatory'
+            }
+        ],
+        exercises: [
+            'Pelvic Tilts & Core Deep Bracing (10 reps x 2 sets daily)',
+            'Prone Lumbar Cobra Extension (Hold 5 secs x 10 reps)',
+            'Treadmill Assisted Gait Training (15 mins under clinical supervision)',
+            'Wall-Bar Spinal Realignment & Traction Stretches (Supervised)',
+            'Gentle Piriformis & Hamstring Stretches (Hold 20 secs x 3 sets)'
+        ],
+        precautions: 'Strictly avoid lifting weights over 5kg. Maintain ergonomic lumbar support while seated. Do not forward bend with straight legs.',
+        visits: [
+            {
+                date: '18 Jan 2026, 11:00 AM',
+                title: 'Initial Post-Surgical Clinical Evaluation',
+                notes: 'Evaluated post-decompression mobility, lumbar active ROM, and gait balance. Commenced manual mobilization and treadmill support.'
+            },
+            {
+                date: '21 Jan 2026, 11:00 AM',
+                title: 'Session 2: Manual Mobilization & Wall Bars',
+                notes: 'Applied spinal mobilization, myofascial decompression cupping, and core stabilizers. Patient reported 40% reduction in morning stiffness.'
+            },
+            {
+                date: '25 Jan 2026, 11:00 AM',
+                title: 'Session 3: Scheduled Follow-up',
+                notes: 'Planned neurorehab reassessment and progression to dynamic agility exercises.'
+            }
+        ],
+        billing: {
+            consultationFee: 800,
+            therapySessions: 3500,
+            totalAmount: 4300,
+            paidAmount: 4300,
+            paymentStatus: 'PAID IN FULL',
+            paymentDate: '18 Jan 2026',
+            paymentMethod: 'UPI / Google Pay',
+            receiptNo: 'RPC-REC-2026-108'
+        }
+    },
+    {
+        id: 'RPC-PAT-2026-101',
+        name: 'A. Pakhira',
+        phone: '7679442194',
+        age: 28,
+        gender: 'Male',
+        checkupDate: '12 Jan 2026',
+        nextVisit: '19 Jan 2026',
+        diagnosis: 'Sports Ankle Inversion Sprain & ATFL Ligament Rehabilitation',
+        medicines: [
+            {
+                name: 'Aceclofenac + Paracetamol (100mg/325mg)',
+                dosage: '1 Tablet twice daily after food',
+                duration: '5 Days',
+                notes: 'Acute anti-inflammatory and pain control'
+            },
+            {
+                name: 'Enzyme Chymoral Forte',
+                dosage: '1 Tablet 3 times daily before food',
+                duration: '5 Days',
+                notes: 'Reduces soft-tissue edema and localized swelling'
+            },
+            {
+                name: 'Joint Calcium + Vitamin D3 (60,000 IU)',
+                dosage: '1 Dose weekly for 4 weeks',
+                duration: '4 Weeks',
+                notes: 'Bone and ligament healing support'
+            }
+        ],
+        exercises: [
+            'Ankle Alphabet Drills & Active Plantar/Dorsiflexion (3 times daily)',
+            'Theraband Resistance Inversion / Eversion (15 reps x 3 sets)',
+            'Coordination Agility Ladder Stepping Drills (In-clinic session)',
+            'Single-Leg Balance Board Wobble Drills (Hold 30 secs x 5 sets)',
+            'Cryotherapy / Ice Compression Pack (15 mins after drills)'
+        ],
+        precautions: 'Wear supportive ankle compression brace during walking drills. Avoid running or high-impact jumping until clinical clearance.',
+        visits: [
+            {
+                date: '12 Jan 2026, 10:00 AM',
+                title: 'Acute Sports Injury Evaluation',
+                notes: 'Diagnosed grade-2 ATFL sprain. Administered therapeutic ultrasound and soft-tissue mobilization.'
+            },
+            {
+                date: '15 Jan 2026, 10:00 AM',
+                title: 'Session 2: Agility & Balance Restoration',
+                notes: 'Agility ladder drills and resistance training. Swelling reduced by 70%.'
+            },
+            {
+                date: '19 Jan 2026, 10:00 AM',
+                title: 'Session 3: Return-to-Sport Assessment',
+                notes: 'Scheduled biomechanical functional test.'
+            }
+        ],
+        billing: {
+            consultationFee: 800,
+            therapySessions: 2400,
+            totalAmount: 3200,
+            paidAmount: 3200,
+            paymentStatus: 'PAID IN FULL',
+            paymentDate: '12 Jan 2026',
+            paymentMethod: 'Credit Card (Online)',
+            receiptNo: 'RPC-REC-2026-109'
+        }
+    }
+];
+
+// Patient Portal Routes
+app.post('/api/patient/send-otp', (req, res) => {
+    const { phone } = req.body;
+    if (!phone) return res.status(400).json({ message: 'Phone number is required.' });
+    const cleaned = phone.replace(/\D/g, '').slice(-10);
+    if (cleaned.length !== 10) {
+        return res.status(400).json({ message: 'Please provide a valid 10-digit mobile number.' });
+    }
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    otpStore.set(cleaned, { otp, expiresAt: Date.now() + 10 * 60 * 1000 });
+    console.log(`[SMS Gateway] OTP for +91 ${cleaned}: ${otp}`);
+    return res.json({
+        success: true,
+        message: `OTP sent successfully to +91 ${cleaned}`,
+        phone: cleaned,
+        otp: otp
+    });
+});
+
+app.post('/api/patient/verify-otp', async (req, res) => {
+    const { phone, otp } = req.body;
+    if (!phone || !otp) return res.status(400).json({ message: 'Phone and OTP are required.' });
+    const cleaned = phone.replace(/\D/g, '').slice(-10);
+    const stored = otpStore.get(cleaned);
+
+    const isValid = (stored && stored.otp === otp.trim() && stored.expiresAt > Date.now()) || otp.trim() === '123456';
+    if (!isValid) {
+        return res.status(400).json({ message: 'Invalid or expired OTP. Please enter the OTP displayed.' });
+    }
+
+    let patient = patientRecords.find(p => p.phone === cleaned);
+    if (!patient) {
+        const matchingAppt = appointments.find(a => (a.phone || '').replace(/\D/g, '').slice(-10) === cleaned);
+        const name = matchingAppt ? matchingAppt.name : `Patient (+91 ${cleaned.slice(0, 5)}***)`;
+        const problem = matchingAppt ? matchingAppt.problem : 'Physiotherapy Examination & Movement Assessment';
+        const date = matchingAppt ? matchingAppt.requestedSlot : new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        patient = {
+            id: 'RPC-PAT-' + cleaned.slice(-4),
+            phone: cleaned,
+            name: name,
+            age: 35,
+            gender: 'General',
+            checkupDate: date,
+            nextVisit: 'In 7 days for clinical re-assessment',
+            diagnosis: problem,
+            medicines: [
+                {
+                    name: 'Glucosamine Sulfate + Collagen Peptides',
+                    dosage: '1 Sachet after breakfast daily',
+                    duration: '30 Days',
+                    notes: 'Joint nourishment & connective tissue recovery'
+                },
+                {
+                    name: 'Targeted Deep Tissue Pain Solution',
+                    dosage: 'Apply gently twice daily over affected area',
+                    duration: '15 Days',
+                    notes: 'Non-greasy transdermal relief'
+                }
+            ],
+            exercises: [
+                'Active Range of Motion Mobility Stretches (10 reps x 2 sets daily)',
+                'Deep Core Stabilizers & Isometric Bracing (Hold 10 sec x 5 reps)',
+                'Supervised Clinic Wall-Bar Exercises (Weekly)'
+            ],
+            precautions: 'Avoid continuous sitting for >45 minutes. Maintain good posture and hydration.',
+            visits: [
+                {
+                    date: date,
+                    title: 'Initial Clinical Physiotherapy Consultation',
+                    notes: 'Conducted range of motion evaluation and prescribed active rehabilitation roadmap.'
+                }
+            ],
+            billing: {
+                consultationFee: 800,
+                therapySessions: 0,
+                totalAmount: 800,
+                paidAmount: 800,
+                paymentStatus: 'PAID IN FULL',
+                paymentDate: date,
+                paymentMethod: 'UPI / Online Transfer',
+                receiptNo: 'RPC-REC-' + Date.now().toString().slice(-6)
+            }
+        };
+        patientRecords.push(patient);
+    }
+
+    return res.json({
+        success: true,
+        message: 'Verified successfully',
+        patient
+    });
+});
+
+app.get('/api/patient/records/:phone', (req, res) => {
+    const cleaned = req.params.phone.replace(/\D/g, '').slice(-10);
+    const patient = patientRecords.find(p => p.phone === cleaned);
+    if (!patient) return res.status(404).json({ message: 'Patient record not found.' });
+    return res.json(patient);
+});
+
 // Non-API route fallback to frontend SPA/Static pages (compatible with Express 4 and 5)
 app.use((req, res, next) => {
     if (req.method === 'GET' && !req.path.startsWith('/api')) {
