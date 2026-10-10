@@ -43,3 +43,14 @@
   from = "/admin"
   to = "/admin.html"
   status = 200
+
+[[redirects]]
+  from = "/patient-portal"
+  to = "/patient-portal.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal"
+  to = "/patient-portal.html"
+  status = 200
+
