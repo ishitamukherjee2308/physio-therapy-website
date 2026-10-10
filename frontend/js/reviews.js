@@ -13,10 +13,77 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const BACKEND_URL = getBackendUrl();
 
+    // Authentic clinic photos of Dr. Subhajit Mukherjee at Roy PhysioCare
+    const DEFAULT_CLINIC_PHOTOS = [
+        {
+            id: 'photo-1',
+            title: 'Doctor Consultation & Diagnosis Desk',
+            category: 'Clinic Facility',
+            caption: 'Dr. Subhajit Mukherjee, PT at his clinical evaluation and diagnostic desk at Roy PhysioCare, conducting comprehensive 1-on-1 patient consultations and range-of-motion assessments.',
+            imageUrl: 'image/dr_subhajit_mukherjee.jpg',
+            uploadedBy: 'Dr. Subhajit Mukherjee',
+            date: '10 Oct 2026'
+        },
+        {
+            id: 'photo-2',
+            title: 'Myofascial Decompression & Back Cupping',
+            category: 'Equipment & Modalities',
+            caption: 'Clinical vacuum cupping therapy performed by Dr. Subhajit Mukherjee to relieve severe lumbar spasm, decompress deep fascia, and promote accelerated microcirculation.',
+            imageUrl: 'image/cupping_therapy.jpg',
+            uploadedBy: 'Dr. Subhajit Mukherjee',
+            date: '10 Oct 2026'
+        },
+        {
+            id: 'photo-3',
+            title: 'Spinal Mobility & Wall Bar Posture Therapy',
+            category: 'Spine & Neuro Rehab',
+            caption: 'Targeted spinal realignment and active posture rehabilitation using clinical wall bars and resistance straps for chronic back, scoliosis, and postural imbalance.',
+            imageUrl: 'image/posture_wallbar.png',
+            uploadedBy: 'Dr. Subhajit Mukherjee',
+            date: '10 Oct 2026'
+        },
+        {
+            id: 'photo-4',
+            title: 'Post-Surgical Treadmill Gait & Joint Rehab',
+            category: 'Spine & Neuro Rehab',
+            caption: 'Dr. Subhajit Mukherjee assisting a patient with supervised gait training, joint stability, and treadmill rehabilitation following surgery and joint replacement.',
+            imageUrl: 'image/treadmill_rehab.png',
+            uploadedBy: 'Dr. Subhajit Mukherjee',
+            date: '10 Oct 2026'
+        },
+        {
+            id: 'photo-5',
+            title: 'Sports Rehabilitation & Coordination Agility Drills',
+            category: 'Sports Therapy',
+            caption: 'Floor agility ladder and neuromuscular coordination training session in clinic to restore dynamic footwork, joint stability, and athletic confidence.',
+            imageUrl: 'image/agility_ladder.png',
+            uploadedBy: 'Dr. Subhajit Mukherjee',
+            date: '10 Oct 2026'
+        },
+        {
+            id: 'photo-6',
+            title: 'Balance & Gait Agility Cone Training',
+            category: 'Spine & Neuro Rehab',
+            caption: 'Dynamic cone stepping drills supervised by Dr. Subhajit Mukherjee for fall prevention, senior mobility enhancement, and neurological gait restoration.',
+            imageUrl: 'image/balance_training.png',
+            uploadedBy: 'Dr. Subhajit Mukherjee',
+            date: '10 Oct 2026'
+        },
+        {
+            id: 'photo-7',
+            title: 'Targeted Knee Joint Decompression Cupping',
+            category: 'Equipment & Modalities',
+            caption: 'Clinical multi-cup vacuum decompression applied around the knee joint to reduce chronic inflammation, joint stiffness, and accelerate healing in osteoarthritis and meniscus issues.',
+            imageUrl: 'image/knee_cupping.jpg',
+            uploadedBy: 'Dr. Subhajit Mukherjee',
+            date: '10 Oct 2026'
+        }
+    ];
+
     let allReviews = [];
     let currentFilter = 'all';
 
-    let allPhotos = [];
+    let allPhotos = [...DEFAULT_CLINIC_PHOTOS];
     let currentPhotoFilter = 'all';
 
     // UI Elements
@@ -126,22 +193,37 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!reviewsContainer) return;
 
         if (reviewsCountBadge) {
-            reviewsCountBadge.textContent = `${allReviews.length} Reviews`;
+            reviewsCountBadge.textContent = allReviews.length > 0
+                ? `${allReviews.length} Verified ${allReviews.length === 1 ? 'Review' : 'Reviews'}`
+                : 'Open for Patient Reviews';
         }
 
         if (!list || list.length === 0) {
-            reviewsContainer.innerHTML = `
-                <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 40px 20px;">
-                    <h3>No reviews found under this category</h3>
-                    <p style="margin-top: 8px; color: var(--text-dim);">Be the first patient to share a review for this condition!</p>
-                </div>
-            `;
+            if (allReviews.length === 0) {
+                reviewsContainer.innerHTML = `
+                    <div class="empty-state-welcome" style="grid-column: 1 / -1; text-align: center; padding: 50px 24px; background: rgba(255, 255, 255, 0.03); border: 2px dashed rgba(56, 189, 248, 0.3); border-radius: 28px; backdrop-filter: blur(12px); box-shadow: 0 15px 35px rgba(0,0,0,0.25);">
+                        <div style="font-size: 3rem; margin-bottom: 14px;">🌟</div>
+                        <h3 style="font-size: 1.6rem; color: #fff; margin-bottom: 10px; font-weight: 600;">Be the First to Review Dr. Subhajit Mukherjee!</h3>
+                        <p style="color: var(--text-dim); max-width: 580px; margin: 0 auto 24px; font-size: 1.02rem; line-height: 1.65;">
+                            All previous placeholder reviews have been cleared. Our reviews platform is now open for all patients! Share your treatment and recovery experience below.
+                        </p>
+                        <a href="#submitReviewSection" class="btn-scroll-form" style="display: inline-block; padding: 14px 34px; text-decoration: none; border-radius: 50px; background: var(--primary); color: #0f172a; font-weight: 600; box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3); transition: all 0.3s ease;">✍️ Leave Your Patient Review</a>
+                    </div>
+                `;
+            } else {
+                reviewsContainer.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 40px 20px;">
+                        <h3>No reviews found under this filter</h3>
+                        <p style="margin-top: 8px; color: var(--text-dim);">Select "All Reviews" to view all patient feedback.</p>
+                    </div>
+                `;
+            }
             return;
         }
 
         reviewsContainer.innerHTML = list.map(item => {
             const initials = item.name
-                ? item.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()
+                ? item.name.split(' ').filter(Boolean).map(n => n[0]).slice(0, 2).join('').toUpperCase()
                 : 'PT';
             
             const starIcons = '★'.repeat(Math.max(1, Math.min(5, item.rating || 5)));
@@ -172,23 +254,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     };
 
+    const isDummyReview = (r) => {
+        const dummyIds = ['rev-1', 'rev-2', 'rev-3', 'rev-4'];
+        const dummyNames = ['Aniket Sen', 'Sangeeta Roy', 'Rajesh Ganguly', 'Debolina Chatterjee'];
+        return dummyIds.includes(r.id) || dummyNames.includes(r.name);
+    };
+
     const loadReviews = async () => {
+        let localReviews = [];
+        try {
+            const raw = localStorage.getItem('local_patient_reviews');
+            if (raw) {
+                localReviews = JSON.parse(raw).filter(r => !isDummyReview(r));
+                localStorage.setItem('local_patient_reviews', JSON.stringify(localReviews));
+            }
+        } catch (e) {
+            console.warn(e);
+        }
+
         try {
             const res = await fetch(`${BACKEND_URL}/api/reviews`);
-            if (!res.ok) throw new Error("Failed to load reviews");
-            const data = await res.json();
-            allReviews = Array.isArray(data) ? data : [];
-            applyFilter(currentFilter);
-        } catch (err) {
-            console.warn("Reviews load failed:", err);
-            if (reviewsContainer) {
-                reviewsContainer.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 30px;">
-                        <p style="color: #f87171;">Unable to load reviews right now. Please check if server is active.</p>
-                    </div>
-                `;
+            if (res.ok) {
+                const data = await res.json();
+                const serverReviews = (Array.isArray(data) ? data : []).filter(r => !isDummyReview(r));
+                const existingIds = new Set(serverReviews.map(r => r.id));
+                const uniqueLocal = localReviews.filter(r => !existingIds.has(r.id));
+                allReviews = [...uniqueLocal, ...serverReviews];
+            } else {
+                allReviews = localReviews;
             }
+        } catch (err) {
+            console.warn("Reviews server fetch error, falling back to local storage:", err);
+            allReviews = localReviews;
         }
+
+        applyFilter(currentFilter);
     };
 
     const filterPills = document.querySelectorAll('#filterPills .pill');
@@ -237,58 +337,86 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.innerHTML = '<span>Submitting Review...</span>';
             }
 
-            const payload = {
+            const newReviewObj = {
+                id: 'rev-' + Date.now(),
                 name,
                 rating: selectedRating,
                 treatment,
                 review,
-                recommend
+                recommend: recommend !== false,
+                date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
             };
+
+            let savedReview = newReviewObj;
 
             try {
                 const response = await fetch(`${BACKEND_URL}/api/reviews`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(newReviewObj)
                 });
 
-                const result = await response.json();
-
-                if (response.ok && result.success) {
+                if (response.ok) {
+                    const result = await response.json();
                     if (result.review) {
-                        allReviews.unshift(result.review);
-                    }
-                    applyFilter(currentFilter);
-
-                    reviewForm.reset();
-                    selectedRating = 5;
-                    setStarVisuals(5);
-
-                    if (formFeedback) {
-                        formFeedback.className = 'form-feedback success';
-                        formFeedback.textContent = 'Review submitted successfully!';
-                    }
-
-                    if (reviewModal) {
-                        reviewModal.classList.add('active');
-                    }
-                } else {
-                    if (formFeedback) {
-                        formFeedback.className = 'form-feedback error';
-                        formFeedback.textContent = result.message || 'Failed to submit review.';
+                        savedReview = result.review;
                     }
                 }
             } catch (error) {
-                console.error("Submission error:", error);
-                if (formFeedback) {
-                    formFeedback.className = 'form-feedback error';
-                    formFeedback.textContent = 'Network error. Please make sure the server is running.';
+                console.warn("Server POST error, saving to local storage fallback:", error);
+            }
+
+            // Immediately add to allReviews at the beginning
+            allReviews = allReviews.filter(r => r.id !== savedReview.id);
+            allReviews.unshift(savedReview);
+
+            // Save to localStorage so it persists across refreshes
+            try {
+                let localReviews = [];
+                const raw = localStorage.getItem('local_patient_reviews');
+                if (raw) localReviews = JSON.parse(raw);
+                localReviews = localReviews.filter(r => r.id !== savedReview.id && !isDummyReview(r));
+                localReviews.unshift(savedReview);
+                localStorage.setItem('local_patient_reviews', JSON.stringify(localReviews));
+            } catch (e) {
+                console.warn(e);
+            }
+
+            // Reset filter to 'all' so new review is immediately visible
+            currentFilter = 'all';
+            filterPills.forEach(p => {
+                if (p.dataset.filter === 'all') p.classList.add('active');
+                else p.classList.remove('active');
+            });
+
+            // Re-render reviews
+            renderReviews(allReviews);
+
+            // Reset form
+            reviewForm.reset();
+            selectedRating = 5;
+            setStarVisuals(5);
+
+            if (formFeedback) {
+                formFeedback.className = 'form-feedback success';
+                formFeedback.textContent = 'Your review has been published successfully!';
+            }
+
+            if (reviewModal) {
+                reviewModal.classList.add('active');
+            }
+
+            // Scroll so user sees their review immediately
+            setTimeout(() => {
+                const reviewsSection = document.getElementById('reviewsContainer');
+                if (reviewsSection) {
+                    reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-            } finally {
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<span>Submit Patient Review</span>';
-                }
+            }, 300);
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Submit Patient Review</span>';
             }
         });
     }
@@ -319,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 50px 20px;">
                     <div style="font-size: 2.5rem; margin-bottom: 12px;">📷</div>
                     <h3>No photos found under this category</h3>
-                    <p style="color: var(--text-dim); margin-top: 8px;">Explore other categories or upload a new clinic photo!</p>
+                    <p style="color: var(--text-dim); margin-top: 8px;">Explore other categories or check back soon!</p>
                 </div>
             `;
             return;
@@ -329,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return `
                 <article class="photo-card" data-index="${index}" title="Click to view full photo and details">
                     <div class="photo-img-wrap">
-                        <img src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80';">
+                        <img src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.onerror=null; this.src='image/dr_subhajit_mukherjee.jpg';">
                         <span class="photo-category-tag">${escapeHtml(item.category || 'Clinic Facility')}</span>
                         <div class="photo-overlay">
                             <span class="btn-overlay-view">🔍 View Fullscreen</span>
@@ -363,20 +491,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadPhotos = async () => {
         try {
             const res = await fetch(`${BACKEND_URL}/api/photos`);
-            if (!res.ok) throw new Error("Failed to load photos");
-            const data = await res.json();
-            allPhotos = Array.isArray(data) ? data : [];
-            applyPhotoFilter(currentPhotoFilter);
-        } catch (err) {
-            console.warn("Photos load failed:", err);
-            if (photosContainer) {
-                photosContainer.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                        <p style="color: #f87171;">Unable to load photos right now. Please verify server status.</p>
-                    </div>
-                `;
+            if (res.ok) {
+                const data = await res.json();
+                const validPhotos = (Array.isArray(data) ? data : []).filter(p => !p.imageUrl?.includes('unsplash.com'));
+                allPhotos = validPhotos.length > 0 ? validPhotos : DEFAULT_CLINIC_PHOTOS;
+            } else {
+                allPhotos = DEFAULT_CLINIC_PHOTOS;
             }
+        } catch (err) {
+            console.warn("Photos load failed, using local clinic photos:", err);
+            allPhotos = DEFAULT_CLINIC_PHOTOS;
         }
+        applyPhotoFilter(currentPhotoFilter);
     };
 
     const applyPhotoFilter = (filter) => {

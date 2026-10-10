@@ -151,99 +151,71 @@ const appointments = [{
     status: 'APPROVED'
 }];
 
-const reviews = [
-    {
-        id: 'rev-1',
-        name: 'Aniket Sen',
-        rating: 5,
-        treatment: 'Sports Injury Recovery',
-        review: 'Suffered a severe ankle sprain during a cricket tournament. Dr. Subhajit tailored a targeted rehab and mobility regimen. I was back playing competitively in 5 weeks without any pain!',
-        recommend: true,
-        date: '24 Sep 2026'
-    },
-    {
-        id: 'rev-2',
-        name: 'Sangeeta Roy',
-        rating: 5,
-        treatment: 'Frozen Shoulder Therapy',
-        review: 'I had been dealing with excruciating shoulder stiffness for over 7 months. Dr. Subhajit’s hands-on mobilization and posture corrections gave me 90% relief within just 3 weeks.',
-        recommend: true,
-        date: '18 Sep 2026'
-    },
-    {
-        id: 'rev-3',
-        name: 'Rajesh Ganguly',
-        rating: 5,
-        treatment: 'Post-Surgery Knee Rehab',
-        review: 'Following my knee replacement, I was nervous about rehabilitation. The care and patience Dr. Subhajit provided was exceptional. Today I can climb stairs without any assistance!',
-        recommend: true,
-        date: '10 Sep 2026'
-    },
-    {
-        id: 'rev-4',
-        name: 'Debolina Chatterjee',
-        rating: 5,
-        treatment: 'Chronic Lower Back Pain',
-        review: 'Years of desk job created chronic lumbar pain. His posture education, ergonomic tips, and core strengthening exercises did wonders. Highly recommended clinic in Kolkata!',
-        recommend: true,
-        date: '02 Sep 2026'
-    }
-];
+const reviews = [];
 
 const clinicPhotos = [
     {
         id: 'photo-1',
-        title: 'Modern Treatment & Therapy Bay',
+        title: 'Doctor Consultation & Diagnosis Desk',
         category: 'Clinic Facility',
-        caption: 'Spacious, sanitized, and fully-equipped manual therapy bay at Roy PhysioCare. Designed for 1-on-1 private patient sessions with ergonomic examination beds.',
-        imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80',
+        caption: 'Dr. Subhajit Mukherjee, PT at his clinical evaluation and diagnostic desk at Roy PhysioCare, conducting comprehensive 1-on-1 patient consultations and range-of-motion assessments.',
+        imageUrl: 'image/dr_subhajit_mukherjee.jpg',
         uploadedBy: 'Dr. Subhajit Mukherjee',
-        date: '02 Oct 2026'
+        date: '10 Oct 2026'
     },
     {
         id: 'photo-2',
-        title: 'Spinal Decompression & Posture Correction Setup',
-        category: 'Spine & Neuro Rehab',
-        caption: 'Specialized cervical and lumbar traction equipment used for slip disc, cervical spondylosis, and sciatica decompression. Safe, gentle, and medically supervised.',
-        imageUrl: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80',
+        title: 'Myofascial Decompression & Back Cupping',
+        category: 'Equipment & Modalities',
+        caption: 'Clinical vacuum cupping therapy performed by Dr. Subhajit Mukherjee to relieve severe lumbar spasm, decompress deep fascia, and promote accelerated microcirculation.',
+        imageUrl: 'image/cupping_therapy.jpg',
         uploadedBy: 'Dr. Subhajit Mukherjee',
-        date: '28 Sep 2026'
+        date: '10 Oct 2026'
     },
     {
         id: 'photo-3',
-        title: 'Advanced Electrotherapy & Ultrasound Modalities',
-        category: 'Equipment & Modalities',
-        caption: 'Latest IFT, TENS, and therapeutic ultrasound machines for rapid pain reduction, deep tissue inflammation control, and accelerated tissue healing.',
-        imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80',
-        uploadedBy: 'Roy PhysioCare Clinic',
-        date: '22 Sep 2026'
+        title: 'Spinal Mobility & Wall Bar Posture Therapy',
+        category: 'Spine & Neuro Rehab',
+        caption: 'Targeted spinal realignment and active posture rehabilitation using clinical wall bars and resistance straps for chronic back, scoliosis, and postural imbalance.',
+        imageUrl: 'image/posture_wallbar.png',
+        uploadedBy: 'Dr. Subhajit Mukherjee',
+        date: '10 Oct 2026'
     },
     {
         id: 'photo-4',
-        title: 'Sports Injury Rehab & Strength Conditioning Area',
-        category: 'Sports Therapy',
-        caption: 'Functional exercise station equipped with resistance bands, balance boards, and active rehabilitation tools to restore joint stability and athletic performance.',
-        imageUrl: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=1200&q=80',
+        title: 'Post-Surgical Treadmill Gait & Joint Rehab',
+        category: 'Spine & Neuro Rehab',
+        caption: 'Dr. Subhajit Mukherjee assisting a patient with supervised gait training, joint stability, and treadmill rehabilitation following surgery and joint replacement.',
+        imageUrl: 'image/treadmill_rehab.png',
         uploadedBy: 'Dr. Subhajit Mukherjee',
-        date: '15 Sep 2026'
+        date: '10 Oct 2026'
     },
     {
         id: 'photo-5',
-        title: 'Doctor Consultation & Evaluation Room',
-        category: 'Clinic Facility',
-        caption: 'Private diagnostic room for thorough 60-minute initial patient evaluation, range-of-motion assessments, and personalized treatment roadmap planning.',
-        imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
+        title: 'Sports Rehabilitation & Coordination Agility Drills',
+        category: 'Sports Therapy',
+        caption: 'Floor agility ladder and neuromuscular coordination training session in clinic to restore dynamic footwork, joint stability, and athletic confidence.',
+        imageUrl: 'image/agility_ladder.png',
         uploadedBy: 'Dr. Subhajit Mukherjee',
-        date: '10 Sep 2026'
+        date: '10 Oct 2026'
     },
     {
         id: 'photo-6',
-        title: 'Targeted Joint & Muscle Recovery Station',
+        title: 'Balance & Gait Agility Cone Training',
+        category: 'Spine & Neuro Rehab',
+        caption: 'Dynamic cone stepping drills supervised by Dr. Subhajit Mukherjee for fall prevention, senior mobility enhancement, and neurological gait restoration.',
+        imageUrl: 'image/balance_training.png',
+        uploadedBy: 'Dr. Subhajit Mukherjee',
+        date: '10 Oct 2026'
+    },
+    {
+        id: 'photo-7',
+        title: 'Targeted Knee Joint Decompression Cupping',
         category: 'Equipment & Modalities',
-        caption: 'Modern therapeutic tools and clinical accessories for precision deep tissue release, mobilization, and post-operative recovery.',
-        imageUrl: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80',
-        uploadedBy: 'Roy PhysioCare Clinic',
-        date: '05 Sep 2026'
+        caption: 'Clinical multi-cup vacuum decompression applied around the knee joint to reduce chronic inflammation, joint stiffness, and accelerate healing in osteoarthritis and meniscus issues.',
+        imageUrl: 'image/knee_cupping.jpg',
+        uploadedBy: 'Dr. Subhajit Mukherjee',
+        date: '10 Oct 2026'
     }
 ];
 
@@ -387,6 +359,7 @@ app.get('/api/reviews', async (req, res) => {
     await databaseConnection;
     if (databaseIsReady()) {
         try {
+            await Review.deleteMany({ id: { $in: ['rev-1', 'rev-2', 'rev-3', 'rev-4'] } });
             const list = await Review.find().sort({ createdAt: -1 }).lean();
             return res.json(list);
         } catch {
@@ -431,11 +404,11 @@ app.get('/api/photos', async (req, res) => {
     await databaseConnection;
     if (databaseIsReady()) {
         try {
+            await Photo.deleteMany({ imageUrl: { $regex: 'unsplash.com', $options: 'i' } });
             const list = await Photo.find().sort({ createdAt: -1 }).lean();
             if (list && list.length > 0) {
                 return res.json(list);
             }
-            // If database is empty, seed initial clinic photos
             await Photo.insertMany(clinicPhotos);
             return res.json(clinicPhotos);
         } catch {
