@@ -379,3 +379,46 @@ body {
   .clinic-header h2 { font-size: 1.9rem; }
   .btn-appointment { width: 100%; padding: 14px 18px; }
 }
+
+/* PHOTO PLACEHOLDER STYLES */
+.photo-placeholder-box {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  background: rgba(15, 23, 42, 0.65);
+  border: 2px dashed rgba(56, 189, 248, 0.35);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.about-row:hover .photo-placeholder-box {
+  border-color: var(--primary);
+  background: rgba(56, 189, 248, 0.08);
+  transform: translateY(-4px);
+}
+
+.placeholder-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+}
+
+.photo-placeholder-box p {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.placeholder-hint {
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
